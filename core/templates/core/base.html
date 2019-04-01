@@ -41,28 +41,28 @@
 						<a href="{% url 'home' %}" class="nav-link text-expanded">Strona Główna</a>                      
 					</li>
 					<li class="nav-item px-lg-3 {% if request.path == '/o-nas/' %} active {% endif %}">
-						<a href="{% url 'about' %}" class="nav-link text-expanded">O Nas</a>						
+						<a href="{% url 'about:about' %}" class="nav-link text-expanded">O Nas</a>						
 					</li>    					    
 					<li class="nav-item px-lg-3 dropdown {% if '/zajecia/' in request.path %} active {% endif %}">						
-						<a href="{% url 'classes' %}" class="nav-link text-expanded dropdown-toggle" data-toggle="dropdown">Zajęcia   
+						<a href="{% url 'classes:classes' %}" class="nav-link text-expanded dropdown-toggle" data-toggle="dropdown">Zajęcia   
 						<span class="caret"></span></a>
 						<ul class="dropdown-menu">							
-							<li><a class="dropdown-item px-3" href="{% url 'classes' %}">Rodzaje Zajęć</a></li>
-							<li><a class="dropdown-item px-3" href="{% url 'prices' %}">Ceny</a></li>
-							<li><a class="dropdown-item px-3" href="{% url 'conditions' %}">Regulamin</a></li>
+							<li><a class="dropdown-item px-3" href="{% url 'classes:classes' %}">Rodzaje Zajęć</a></li>
+							<li><a class="dropdown-item px-3" href="{% url 'classes:prices' %}">Ceny</a></li>
+							<li><a class="dropdown-item px-3" href="{% url 'classes:conditions' %}">Regulamin</a></li>
 						</ul>                    
 					</li>
 					<li class="nav-item px-lg-3 {% if request.path == '/grafik/' %} active {% endif %}">
-						<a href="{% url 'schedule' %}" class="nav-link text-expanded "><i class="far fa-calendar-alt"></i> Grafik</a>						
+						<a href="{% url 'schedule:schedule' %}" class="nav-link text-expanded "><i class="far fa-calendar-alt"></i> Grafik</a>						
 					</li>   
 					<li class="nav-item px-lg-3 {% if request.path == '/wydarzenia/' %} active {% endif %}">
-						<a href="{% url 'events' %}" class="nav-link text-expanded">Wydarzenia</a>                       
+						<a href="{% url 'events:events' %}" class="nav-link text-expanded">Wydarzenia</a>                       
 					</li>
 					<li class="nav-item px-lg-3 {% if request.path == '/kontakt/' %} active {% endif %}">
-						<a href="{% url 'contact' %}" class="nav-link  text-expanded">Kontakt</a>                       
+						<a href="{% url 'contact:contact' %}" class="nav-link  text-expanded">Kontakt</a>                       
 					</li>
 					<li class="nav-item px-lg-3 {% if request.path == '/blog/' %} active {% endif %}">
-						<a href="{% url 'blog' %}" class="nav-link text-expanded">Blog</a>                       
+						<a href="{% url 'blog:posts' %}" class="nav-link text-expanded">Blog</a>                       
 					</li>
 				</ul>
 			</div>			

@@ -3,16 +3,16 @@ from .models import Category, Post
 
 # Create your views here.
 
-def blog(request):
+def post_list(request):
 	posts = Post.objects.all()
 	categories = Category.objects.all()
-	return render(request, "blog/blog.html", {'posts':posts, 'categories': categories})
+	return render(request, "blog/post_list.html", {'posts':posts, 'categories': categories})
 
-def blog_post(request, post_id):
+def post_detail(request, post_id):
 	post = get_object_or_404(Post, id=post_id)
-	return render(request, "blog/blog_post.html",{'post':post})
+	return render(request, "blog/post_detail.html",{'post':post})
 
-def blog_category(request, category_id):
+def category_detail(request, category_id):
 	category = get_object_or_404(Category, id=category_id)
 	categories = Category.objects.all()
-	return render(request, "blog/blog_category.html",{'category':category, 'categories': categories})
+	return render(request, "blog/category_detail.html",{'category':category, 'categories': categories})

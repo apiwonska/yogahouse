@@ -12,10 +12,10 @@
 				<div class="col d-none d-md-block table-responsive">
 					<div class="text-center mb-4">
 						Wyświetl grafik dla: 
-						<a href="{% url 'schedule' %}" class="btn btn-sm btn-info mx-2">Wszystkie zajęcia</a>
+						<a href="{% url 'schedule:schedule' %}" class="btn btn-sm btn-info mx-2">Wszystkie zajęcia</a>
 						{% for class_type in class_types %}							
 							<a 
-							href="{% url 'schedule_class_type' class_type.id %}" 
+							href="{% url 'schedule:schedule_class_type' class_type.id %}" 
 							class="btn btn-sm mx-2" 
 							style="color:white; background-color:{{class_type.display_color.color}};">
 								{{ class_type.name }}
@@ -68,13 +68,13 @@
 																		<div class="col-4">
 																			<h6 class="mb-3">Instruktor:</h6>
 																			<img src="{{ class.teacher.description.image.url }}" class="img-fluid rounded-circle mb-3">
-																			<p class="text-center"><a href="{% url 'about' %}" >{{ class.teacher.name }}</a></p>
+																			<p class="text-center"><a href="{% url 'about:about' %}" >{{ class.teacher.name }}</a></p>
 																		</div>
 																		<div class="col-8">
 																			<h6 class="mb-3">Opis zajęć:</h6>
 																			<p class="text-justify mb-2">
 																				{{class.class_type.description.description|truncatewords:40}}
-																				<a href="{% url 'classes' %}" >Dowiedz się więcej</a>
+																				<a href="{% url 'classes:classes' %}" >Dowiedz się więcej</a>
 																			</p>
 																			<p></p>
 																		</div>

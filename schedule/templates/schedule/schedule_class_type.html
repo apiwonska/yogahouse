@@ -12,9 +12,9 @@
 				<div class="col d-none d-md-block table-responsive">
 					<div class="text-center mb-4">
 						Wyświetl grafik dla: 
-						<a href="{% url 'schedule' %}" class="btn btn-sm btn-info mx-2">Wszystkie zajęcia</a>
+						<a href="{% url 'schedule:schedule' %}" class="btn btn-sm btn-info mx-2">Wszystkie zajęcia</a>
 						{% for class_type in class_types %}							
-							<a href="{% url 'schedule_class_type' class_type.id %}" 
+							<a href="{% url 'schedule:schedule_class_type' class_type.id %}" 
 							class="btn btn-sm mx-2"								
 							style="color:white; background-color:{{class_type.display_color.color}};">
 								{{ class_type.name }}

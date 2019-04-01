@@ -1,0 +1,290 @@
+:root {
+	--blue-color: rgb(119,201,212);
+	--marine-color: rgb(87,188,144);
+	--forest-color: rgb(1,82,73);
+	--grey-color: rgb(165,165,175);
+}
+
+.tstyle-brand {
+	font-family: 'Pacifico';
+}
+
+.btn-info {
+	background: var(--blue-color);
+	border-color: var(--blue-color);
+}
+
+.btn-secondary {
+	background: var(--grey-color);
+	border-color: var(--grey-color);
+}
+
+.btn-success {
+	background: var(--marine-color);
+	border-color: var(--marine-color);
+}
+
+#siteHeading h1 {	
+	font-size: 3rem;
+	color: var(--forest-color);
+}
+
+#mainNav {
+	background-color: var(--marine-color);
+}
+
+#mainNav .navbar-brand {
+	font-size: 2rem;
+	color: var(--forest-color);
+}
+
+#mainNav .nav-item .nav-link {
+	text-transform: uppercase;
+	font-family: 'Ubuntu', sans-serif;
+	font-weight: bold;
+	font-size: 0.9rem;
+	color: white;
+}
+
+#mainNav .nav-item .nav-link:hover {
+	color: var(--forest-color);
+}
+
+#mainNav  .nav-item.active .nav-link {
+	color: var(--forest-color);
+}
+
+#mainNav .dropdown-menu {
+	background-color: var(--marine-color);
+	border-color: transparent;	
+}
+
+#mainNav .dropdown-menu :hover {
+	background-color: transparent;
+	color: var(--forest-color);
+}
+
+#mainNav .dropdown-menu li a {
+	text-transform: uppercase;
+	font-family: 'Ubuntu', sans-serif;
+	font-size: 0.8rem;
+	color: white;
+}
+
+.style-light {
+	font-family: KoHo;
+	color: #777777;
+}
+
+.footer {
+	color: var(--forest-color);
+}
+
+#social-link a{
+	color: var(--forest-color);
+	text-decoration: none;
+}
+
+.footer a {
+	color: grey;
+	font-style: italic;
+}
+
+#creditsModal a {
+	color: grey;
+	font-style: italic;
+}
+
+/* Scroll to the top of the page*/
+#return-to-top {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    background:  rgba(176,176,176,0.7);
+    width: 50px;
+    height: 50px;
+    display: block;
+    text-decoration: none;
+    -webkit-border-radius: 35px;
+    -moz-border-radius: 35px;
+    border-radius: 35px;
+    display: none;
+    -webkit-transition: all 0.3s linear;
+    -moz-transition: all 0.3s ease;
+    -ms-transition: all 0.3s ease;
+    -o-transition: all 0.3s ease;
+    transition: all 0.3s ease;
+}
+#return-to-top i {
+    color: #fff;
+    margin: 0;
+    position: relative;
+    left: 16px;
+    top: 13px;
+    font-size: 19px;
+    -webkit-transition: all 0.3s ease;
+    -moz-transition: all 0.3s ease;
+    -ms-transition: all 0.3s ease;
+    -o-transition: all 0.3s ease;
+    transition: all 0.3s ease;
+}
+#return-to-top:hover {
+    background: rgba(176,176,176, 0.9);
+}
+#return-to-top:hover i {
+    top: 5px;
+}
+
+/*--------------HOME.HTML-------------------*/
+.dark-overlay {
+	position: absolute;
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 100%;
+	background: rgba(0,0,0,0.5);
+}
+
+.style-caption {
+	font-family: 'Lato', sans-serif;
+}
+
+#home-section {
+	position:relative;
+	min-height: 400px;
+	background: url('../img/homeSection2.jpg');
+	background-repeat: no-repeat;
+	background-size: cover;
+	margin: 0px auto;
+	color:white;
+}
+
+#class-link {
+	position: relative;
+	min-height: 250px;
+	background: url('../img/bg-classes.jpg');
+	background-size: cover;
+	background-attachment: fixed;
+	background-repeat: no-repeat;
+	text-align: center;
+	color: white;
+}
+
+.carousel-item {
+	height: 250px;
+}
+
+.carousel-item:after {
+	content:"";
+	display:block;
+	position:absolute;
+	top:0;
+	bottom:0;
+	left:0;
+	right:0;
+}
+
+.carousel-background {
+	background: var(--marine-color);
+	background-size: cover;
+}
+
+.blockquote-footer {
+	color: rgba(255,255,255,0.5);
+}
+
+/* -----------ABOUT.HTML ----------------- */
+
+#teachers-section {
+	background: rgba(0,0,0,0.1);
+}
+
+
+#teachers-section img {
+	margin-top: -70px !important;
+}
+
+/*------------CLASSES.HTML------------------*/
+
+#classes-description .card-header {
+	background: var(--blue-color);
+	color: white;
+	cursor:pointer;
+}
+#classes-description .card-header:hover {
+	background: rgb(81, 186, 200);
+}
+
+/* ---------- PRICES.HTML -----------------*/
+
+#prices-section .prices-details > h2 {
+	background: var(--grey-color);
+	color: white;
+}
+
+#prices-section .prices-details {
+	background: rgba(0,0,0,0.1);
+}
+
+#prices-section  .card-header {
+	background: var(--blue-color);
+	color: white;
+}
+
+#prices-section .card {
+	width: 100%;
+}
+
+/*-------------SCHEDULE.HTML-----------------*/
+
+#schedule-md thead th {
+	width: 12.5%;
+	background: var(--grey-color);
+	color: white;
+
+}
+
+#schedule-md table {
+	font-size: 0.9rem;
+}
+
+#schedule-sm .card-header {
+	background: var(--grey-color);
+	color: white;
+	cursor: pointer;
+}
+
+#schedule-sm .card-header:hover {
+	background: rgb(133, 133, 147);	
+}
+
+.btn:focus {
+  box-shadow: none;
+}
+
+.schedule-modal p {
+	font-weight: lighter;
+}
+
+.schedule-modal a {
+	color: black;
+	font-weight: bolder;
+}
+
+/*-------------CONTACT.HTML------------------*/
+
+#map {
+	height: 400px;
+	width: 100%;
+}
+
+#contact-form .card-header {
+	background: var(--blue-color);
+	color: white;
+}
+
+/*--------------BLOG.HTML-------------------*/
+
+/*--------------EVENTS.HTML-------------------*/
+
+

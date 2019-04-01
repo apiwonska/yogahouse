@@ -1,0 +1,110 @@
+{% extends 'core/base.html' %}
+{% load static %}
+
+{% block content %}
+	<!-- Home Section -->
+	<section id="home-section" class="d-none d-sm-block">
+		<div class="dark-overlay">
+			<div class="container mt-5">
+				<div class="row">
+					<div class="col-lg-7">
+					</div>
+					<div class="col-lg-5 ">
+						<blockquote >Twoje ciało jest w przeszłości. Twój umysł w przyszłości. W jodze łączą się razem w teraźniejszości.</blockquote>
+						<footer class="blockquote-footer"> <b>BKS Iyengar</b></footer>
+					</div>
+				</div>
+			</div>
+		</div>
+	</section>
+	
+	<!-- Classes Heading -->
+	<section id="class-heading" class="py-5">
+		<div class="container">
+			<div class="row">
+				<div class="col-lg-9 mx-auto">
+					<div class="row">
+						<div class="col-sm-4 mx-auto align-self-center mb-3">
+							<img src="{% static 'core/img/owner.jpg' %}" class="img-fluid rounded-circle ">
+						</div>
+						<div class="col-sm-8 mx-auto text-center">
+							<h1 class="style-caption">O NAS</h1>
+							<p class="text-lead style-light">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Tempore necessitatibus molestias autem labore quaerat a cum tenetur quos, nobis velit laudantium eos accusantium officiis, rerum dignissimos beatae praesentium. Vero sint error repellendus ea incidunt maiores ex blanditiis laboriosam quam eius laudantium deleniti consectetur doloremque animi, placeat neque natus deserunt voluptates.</p>
+							<a href="{% url 'about' %}" class="btn btn-info">Więcej...</a>
+						</div>
+					</div>
+				</div>		
+			</div>
+		</div>
+	</section>
+
+	<!-- Classes Link -->
+	<section id="class-link">
+		<div class="dark-overlay">
+			<div class="row">
+				<div class="col ">
+					<div class="container py-5">
+						<h1 class="style-caption mb-4">Dołącz Do Nas!</h1>
+						<a href="{% url 'classes' %}" class="btn btn-info ">Wybierz Zajęcia Dla Siebie</a>		
+					</div>
+				</div>
+			</div>
+		</div>
+	</section>
+
+	<!-- Studio -->
+	<section id="studio" class="py-5">
+		<div class="container">
+			<div class="row">
+				<div class="col-md-8 mx-auto text-center">
+					<h1 class="style-caption">NASZE STUDIO</h1>
+					<p class="text-lead style-light mb-4">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Tempore necessitatibus molestias autem labore quaerat a cum tenetur quos, nobis velit laudantium eos accusantium officiis, rerum dignissimos beatae praesentium. Vero sint error repellendus ea incidunt maiores ex blanditiis laboriosam quam eius laudantium deleniti consectetur doloremque animi, placeat neque natus deserunt voluptates.</p>
+					<a href="{% url 'contact' %}" class="btn btn-info ">Sprawdź Jak Nas Znaleźć</a>
+				</div>
+			</div>
+		</div>
+	</section>
+
+<!-- Showcase Slider -->
+
+	<section id="showcase">
+	    <div id="myCarousel" class="carousel slide" data-ride="carousel">
+	      <div class="carousel-inner carousel-background">
+	        <div class="carousel-item  active">
+	          <div class="container">
+	            <div class="carousel-caption text-center mb-3">
+	            	<blockquote>"Lorem ipsum dolor sit amet, consectetur adipisicing elit. Recusandae debitis, ut adipisci facilis laborum eligendi."</blockquote>
+	            	<footer class="blockquote-footer">Klient 1</footer>
+	            </div>
+	          </div>
+	        </div>
+	        <div class="carousel-item">
+	          <div class="container">
+	            <div class="carousel-caption text-center mb-3">
+	            	<blockquote>"Lorem ipsum dolor sit amet, consectetur adipisicing elit. Delectus nam asperiores distinctio aut possimus voluptatibus?"</blockquote>
+	            	<footer class="blockquote-footer">Klient 2</footer>
+	            </div>
+	          </div>
+	        </div>
+	        <div class="carousel-item">
+	          <div class="container">
+	            <div class="carousel-caption text-center mb-3">
+	            	<blockquote>"Lorem ipsum dolor sit amet, consectetur adipisicing elit. Magni temporibus amet maxime laborum provident, fugit."</blockquote>
+	            	<footer class="blockquote-footer">Klient 3</footer>
+	            </div>
+	          </div>
+	        </div>
+	      </div>
+	      
+	      <a href="#myCarousel" data-slide="prev" class="carousel-control-prev">
+	        <span class="carousel-control-prev-icon"></span>
+	      </a>
+
+	      <a href="#myCarousel" data-slide="next" class="carousel-control-next">
+	        <span class="carousel-control-next-icon"></span>
+	      </a>
+
+	    </div>
+	 </section>
+
+{% endblock %}

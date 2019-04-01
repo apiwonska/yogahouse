@@ -1,0 +1,70 @@
+{% extends 'core/base.html' %}
+{% load static %}
+
+{% block content %}
+
+	<!-- Yoga General Information -->
+	<section id="yoga-general" class="pt-5">
+		<div class="container text-center" >
+			<div class="row">
+				<div class="col-lg-9 mx-auto">
+					<div class="row">
+						<div class="col-md-4 mx-auto align-self-start mb-3">
+							<img src="{% static 'core/img/classes1.jpg' %}" class="img-fluid rounded-circle mb-4 ">
+						</div>
+						<div class="col-md-8 mx-auto text-center">
+							<h2>Dlaczego warto ćwiczyć jogę?</h2>
+							<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Tempore necessitatibus molestias autem labore quaerat a cum tenetur quos, nobis velit laudantium eos accusantium officiis, rerum dignissimos beatae praesentium. Vero sint error repellendus ea incidunt maiores ex blanditiis laboriosam quam eius laudantium deleniti consectetur doloremque animi, placeat neque natus deserunt voluptates.</p>
+							<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Veritatis possimus illo at, rem eum natus nam eos accusamus. Dicta, eum? Lorem ipsum dolor sit amet, consectetur adipisicing elit. Illo deleniti ex voluptatum repellendus, tempora doloremque ad, sit facilis, suscipit porro quidem nihil atque qui et esse, non quo beatae! Tenetur.</p>							
+						</div>
+					</div>
+				</div>
+			</div>			
+		</div>		
+	</section>
+
+	<!-- Classes Description -->
+	<section id="classes-description" class="py-5">		
+		<div class="container">
+			<div class="row">
+				<div class="col-lg-9 mx-auto">
+					
+					<h2 class="text-center mb-4">Opis Zajęć</h2>
+
+					{% for c in class_offer %}
+					<div class="card ">
+						<div class="card-header text-center ">
+							<h4 class="mb-0">
+								<div href="#collapse{{c.id}}" data-toggle="collapse" data-parent="#classes-description">
+									<i class="fas fa-arrow-circle-down"></i> {{ c.title }}
+								</div>
+							</h4>
+						</div>
+						<div id="collapse{{c.id}}" class="collapse">
+							<div class="card-body">
+								{{ c.description|linebreaks }}
+							</div>
+						</div>
+					</div>
+					{% endfor %}
+					
+				</div>
+			</div>			
+
+		</div>
+	</section>
+
+	<!-- Preparation  -->
+	<section id="preparation" >
+		<div class="container" >
+			<div class="row">
+				<div class="col-lg-9 mx-auto">										
+					<h2 class="text-center mb-4">Przygotowanie do zajęć</h2>
+					<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Tempore necessitatibus molestias autem labore quaerat a cum tenetur quos, nobis velit laudantium eos accusantium officiis, rerum dignissimos beatae praesentium. Vero sint error repellendus ea incidunt maiores ex blanditiis laboriosam quam eius laudantium deleniti consectetur doloremque animi, placeat neque natus deserunt voluptates.</p>
+					<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Veritatis possimus illo at, rem eum natus nam eos accusamus. Dicta, eum? Lorem ipsum dolor sit amet, consectetur adipisicing elit. Illo deleniti ex voluptatum repellendus, tempora doloremque ad, sit facilis, suscipit porro quidem nihil atque qui et esse, non quo beatae! Tenetur.</p>			
+				</div>
+			</div>			
+		</div>		
+	</section>
+
+{% endblock %}

@@ -1,0 +1,16 @@
+{% extends 'core/base.html' %}
+{% load static %}
+
+{% block content %}
+	
+	<!-- Terms and Conditions -->
+	<section class="conditions-section">
+		<div class="container py-5">
+			<h2 class="text-center">REGULAMIN</h2>
+			{{ conditions.content|safe }}
+
+
+		</div>
+	</section>
+
+{% endblock %}	

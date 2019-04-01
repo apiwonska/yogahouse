@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="UTF-8">
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+	<meta name="description" content="">
+	<meta name="author" content="">
+
+	<title>Yoga House | Studio Jogi</title>
+
+	{% load static %}
+	
+	<!-- Bootstrap and styles -->
+	<link href="{% static 'core/vendor/bootstrap/css/bootstrap.min.css' %}" rel="stylesheet">
+	<link href="{% static 'core/css/style.css' %}" rel="stylesheet">
+
+	<!-- Fonts -->
+	<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.3.1/css/all.css" integrity="sha384-mzrmE5qonljUremFsqc01SB46JvROS7bZs3IO2EmfFsd15uHvIt+Y8vEf7N7fWAU" crossorigin="anonymous">
+	<link href="https://fonts.googleapis.com/css?family=Pacifico|Ubuntu|KoHo|Hebo|Lato" rel="stylesheet"> 
+
+</head>
+
+<body>
+	<div class="" id="siteHeading">
+		<h1 class="text-center d-none d-lg-block py-4 mb-0 tstyle-brand">Yoga House </h1>				
+	</div>
+
+
+	<!-- Navigation -->
+	<nav class="navbar navbar-expand-lg navbar-dark py-3" id="mainNav">
+		<div class="container">
+			<a href="{% url 'home' %}" class="navbar-brand text-expanded d-lg-none tstyle-brand">Yoga House</a>	
+			<button class="navbar-toggler" data-toggle="collapse" data-target="#navbarCollapse">
+				<span class="navbar-toggler-icon icon-color"></span>
+			</button>
+			<div class="collapse navbar-collapse" id="navbarCollapse">
+				<ul class="navbar-nav mx-auto">
+					<li class="nav-item px-lg-3 {% if request.path == '/' %} active {% endif %}">
+						<a href="{% url 'home' %}" class="nav-link text-expanded">Strona Główna</a>                      
+					</li>
+					<li class="nav-item px-lg-3 {% if request.path == '/o-nas/' %} active {% endif %}">
+						<a href="{% url 'about' %}" class="nav-link text-expanded">O Nas</a>						
+					</li>    					    
+					<li class="nav-item px-lg-3 dropdown {% if '/zajecia/' in request.path %} active {% endif %}">						
+						<a href="{% url 'classes' %}" class="nav-link text-expanded dropdown-toggle" data-toggle="dropdown">Zajęcia   
+						<span class="caret"></span></a>
+						<ul class="dropdown-menu">							
+							<li><a class="dropdown-item px-3" href="{% url 'classes' %}">Rodzaje Zajęć</a></li>
+							<li><a class="dropdown-item px-3" href="{% url 'prices' %}">Ceny</a></li>
+							<li><a class="dropdown-item px-3" href="{% url 'conditions' %}">Regulamin</a></li>
+						</ul>                    
+					</li>
+					<li class="nav-item px-lg-3 {% if request.path == '/grafik/' %} active {% endif %}">
+						<a href="{% url 'schedule' %}" class="nav-link text-expanded "><i class="far fa-calendar-alt"></i> Grafik</a>						
+					</li>   
+					<li class="nav-item px-lg-3 {% if request.path == '/wydarzenia/' %} active {% endif %}">
+						<a href="{% url 'events' %}" class="nav-link text-expanded">Wydarzenia</a>                       
+					</li>
+					<li class="nav-item px-lg-3 {% if request.path == '/kontakt/' %} active {% endif %}">
+						<a href="{% url 'contact' %}" class="nav-link  text-expanded">Kontakt</a>                       
+					</li>
+					<li class="nav-item px-lg-3 {% if request.path == '/blog/' %} active {% endif %}">
+						<a href="{% url 'blog' %}" class="nav-link text-expanded">Blog</a>                       
+					</li>
+				</ul>
+			</div>			
+		</div>    
+	</nav>
+
+	<!-- Content -->
+	{% block content %}
+	{% endblock %}
+
+	<!-- Footer -->
+	<footer class="footer text-center py-5">
+		<div class="container">
+			<p id="social-link">
+				<a href="{{ LINK_FACEBOOK }}" >
+					<span class="fa-stack fa-1x">
+						<i class="fa fa-circle fa-stack-2x"></i>
+						<i class="fab fa-facebook-f fa-stack-1x fa-inverse"></i>
+					</span>
+				</a>
+				<a href="{{ LINK_INSTAGRAM }}" class=" mx-2">
+					<span class="fa-stack fa-1x">
+						<i class="fa fa-circle fa-stack-2x"></i>
+						<i class="fab fa-instagram fa-stack-1x fa-inverse"></i>
+					</span>
+				</a>
+				<a href="{{ LINK_YOUTUBE }}" class="">
+					<span class="fa-stack fa-1x">
+						<i class="fa fa-circle fa-stack-2x"></i>
+						<i class="fab fa-youtube fa-stack-1x fa-inverse"></i>
+					</span>
+				</a>
+			</p>
+			<p class="m-0 mbt1">&copy; Anna Piwońska 2018</p>
+			<a href="" class="link" data-toggle="modal" data-target="#creditsModal">Credits</a>
+		</div>
+	</footer>
+
+	<!-- Credits Modal -->
+	<div class="modal" id="creditsModal">
+		<div class="modal-dialog">
+			<div class="modal-content">
+				<div class="modal-header">
+					<h5 class="modal-title">Credits</h5>
+					<button class="close" data-dismiss="modal">
+						<span>&times;</span>
+					</button>
+				</div>
+				<div class="modal-body">
+					<div class="px-3">
+						<p>Na stronie wykorzystano materiały graficzne z serwisów <a href="https://fontawesome.com/">fontawsome.com</a> i <a href="https://unsplash.com/">unsplash.com</a>.	
+						</p>
+						<p><b>All icons come from: </b> <a href="https://fontawesome.com/">fontawsome.com</a></p>
+						<p><b>All photos come from: </b> <a href="https://unsplash.com/">unsplash.com</a></p>	
+					</div>
+				</div>	
+				<div class="modal-footer">
+					<button class="btn btn-info" data-dismiss="modal">Close</button>
+				</div>			
+			</div>
+		</div>
+	</div>
+
+	<!-- Bootstrap -->
+	<script src="{% static 'core/vendor/jquery/jquery.min.js' %}"></script>
+	<script src="{% static 'core/vendor/bootstrap/js/bootstrap.bundle.min.js' %}"></script>
+
+	<script>
+		//Configure Slider
+		$('.carousel').carousel({
+			interval:4000,
+			pause: 'hover'
+		});
+	</script>
+
+	<!-- Lightbox -->
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/ekko-lightbox/5.3.0/ekko-lightbox.min.js"></script>
+	<script>
+		//Lightbox Init
+		$(document).on('click', '[data-toggle="lightbox"]', function(event) {
+			event.preventDefault();
+			$(this).ekkoLightbox();
+		});
+	</script>
+
+	<!-- Scroll to the top -->
+	<a href="javascript:" id="return-to-top"><i class="fas fa-chevron-up"></i></a>
+	<script>
+		$(window).scroll(function() {
+		    if ($(this).scrollTop() >= 50) {        // If page is scrolled more than 50px
+		        $('#return-to-top').fadeIn(200);    // Fade in the arrow
+		    } else {
+		        $('#return-to-top').fadeOut(200);   // Else fade out the arrow
+		    }
+		});
+		$('#return-to-top').click(function() {      // When arrow is clicked
+			$('body,html').animate({
+		        scrollTop : 0                       // Scroll to top of body
+		    }, 500);
+		});
+	</script>
+	
+</body>
+
+</html>

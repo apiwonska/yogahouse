@@ -1,0 +1,67 @@
+{% extends 'core/base.html' %}
+{% load static %}
+
+{% block content %}
+
+	<!-- Schedule Table -->
+	<section class="py-5" id="schedule" >
+		<div class="container">
+			
+			<!-- SCHEDULE FOR MEDIUM SCREEN AND BIGGER /Table/ -->
+			<div class="row" id="schedule-md">
+				<div class="col d-none d-md-block table-responsive">
+					<div class="text-center mb-4">
+						Wyświetl grafik dla: 
+						<a href="{% url 'schedule' %}" class="btn btn-sm btn-info mx-2">Wszystkie zajęcia</a>
+						{% for class_type in class_types %}							
+							<a href="{% url 'schedule_class_type' class_type.id %}" 
+							class="btn btn-sm mx-2"								
+							style="color:white; background-color:{{class_type.display_color.color}};">
+								{{ class_type.name }}
+							</a>
+						{% endfor %}
+					</div>
+					<table class="table table-bordered text-center">
+						<!-- Table header -->
+						<thead class="text-uppercase ">
+							<tr>
+								<th>Godz.</th>
+								{% for day in days_of_week %}
+									<th>{{day}}</th>
+								{% endfor %}
+							</tr>
+						</thead>
+						<!-- Table body -->
+						<tbody>
+							{% for hour in start_time %}
+							<tr>
+								<th>{{hour.time|time:"G:i"}}</th>
+								<!-- Classes in (big) schedule -->
+								{% for day in days_of_week %}
+									<td>
+										{% for class in class_type.classinschedule_set.all %}
+											{% if day in class.day_of_week and hour == class.start_time %}
+										 		<a href="" class="btn btn-sm" style="color:white; background-color:{{class.class_type.display_color.color}};">
+										 			{{class.class_type}} 
+										 			<br>
+										 			<small>{{ class.teacher.name }}</small>
+										 		</a> 
+										 	{% endif %}											
+										{% endfor %}
+									</td>
+								{% endfor %}
+
+							</tr>
+							{% endfor %}
+					
+						</tbody>
+					</table>
+				</div>
+			</div>	
+
+
+
+		</div>
+	</section>
+
+{% endblock %}

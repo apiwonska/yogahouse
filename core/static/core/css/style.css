@@ -285,6 +285,26 @@
 
 /*--------------BLOG.HTML-------------------*/
 
+
+.page-item a:focus {
+	box-shadow: none;
+}
+
+.page-item a {
+	color: #6c757d;
+}
+
+.page-item a:hover {
+	color: white;
+	background-color: #a5a5af;
+}
+
+.page-item .page-active {
+	color: white;
+	background-color: #a5a5af;
+}
+
+
 /*--------------EVENTS.HTML-------------------*/
 
 

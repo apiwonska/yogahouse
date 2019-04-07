@@ -51,7 +51,7 @@ class Post(models.Model):
 	class Meta:
 		verbose_name='Post'
 		verbose_name_plural='Posty'
-		ordering = ['created']
+		ordering = ['-created']
 
 	def __str__(self):
 		return self.title

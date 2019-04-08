@@ -1,6 +1,7 @@
 from django.db import models
 from django.contrib.auth.models import User
 from django.utils.timezone import now
+
 from imagekit.models import ImageSpecField, ProcessedImageField
 from imagekit.processors import ResizeToFill
 
@@ -56,6 +57,11 @@ class Post(models.Model):
 
 	def __str__(self):
 		return self.title
+
+	def was_published(self):
+		return self.published < now()
+	was_published.short_description = 'Opublikowano'
+	was_published.boolean = True
 
 	def content_short(self):
 		content_short_words = self.content.split(' ')[:50]

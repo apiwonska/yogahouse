@@ -1,13 +1,37 @@
 from django.contrib import admin
 from .models import Post, Category
 
-# Register your models here.
+
 class PostAdmin(admin.ModelAdmin):
-	readonly_fields = ['created', 'updated']
+    readonly_fields = ['created', 'updated', 'was_published']
+    fieldsets = (
+        (None, 									{'fields': ('title', 'content', 'image')}),
+        ('Informacje dodatkowe', 				{
+         'fields': (('category', 'author'), 'was_published')}),
+        (
+            'Data utworzenia/ edycji/ publikacji',
+            {
+                'fields': ('published', 'created', 'updated'),
+                'classes': ('collapse',), 
+                'description': '<p style="color:red;">Data publikacji może być w przyszłości.</p>'
+            }
+        ),
+    )
+  
+    list_display = ('title', 'author', 'was_published',
+                    'published', 'post_categories')
+    list_filter = ['published', 'author', 'category']
+    search_fields = ('title', 'content')
+    date_hierarchy = 'published'
+
+    def post_categories(self, obj):
+        return ', '.join([c.name for c in obj.category.all().order_by('name')])
+    post_categories.short_description = 'Kategoria'
+
 
 class CategoryAdmin(admin.ModelAdmin):
-	readonly_fields = ['created', 'updated']
-	prepopulated_fields = {'slug':('name',)}
+    readonly_fields = ['created', 'updated']
+    prepopulated_fields = {'slug': ('name',)}
 
 admin.site.register(Post, PostAdmin)
 admin.site.register(Category, CategoryAdmin)

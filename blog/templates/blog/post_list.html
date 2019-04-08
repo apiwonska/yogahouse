@@ -15,7 +15,7 @@
 				      <select id="inputCategory" class="form-control" name="cat">
 				        <option value='' {% if not category %} selected {% endif %}>Wszystkie kategorie...</option>
 				        {% for c in categories %}
-				        <option value={{c}} {% if category == c.name %} selected {% endif %} >{{ c }}</option>			
+				        <option value={{c.slug}} {% if category == c.name %} selected {% endif %} >{{ c }}</option>			
 				        {% endfor %}
 				      </select>
 				    </div>	

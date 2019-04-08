@@ -7,7 +7,8 @@ from imagekit.processors import ResizeToFill
 # Create your models here.
 
 class Category(models.Model):
-	name = models.CharField(max_length=100, verbose_name='Nazwa Kategorii')
+	name = models.CharField(max_length=50, unique=True, verbose_name='Nazwa Kategorii')
+	slug = models.SlugField(max_length=50, unique=True)
 
 	created = models.DateTimeField(auto_now_add=True, verbose_name='Data utworzenia')
 	updated = models.DateTimeField(auto_now=True, verbose_name='Data aktualizacji')

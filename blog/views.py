@@ -24,9 +24,9 @@ def search(request):
 	order = request.GET.get('order')
 
 	if category and query:
-	    results = Post.objects.filter(category__name = category).filter(Q(title__icontains=query) | Q(content__icontains=query))
+	    results = Post.objects.filter(category__slug = category).filter(Q(title__icontains=query) | Q(content__icontains=query))
 	elif category:
-		results = Post.objects.filter(category__name = category)
+		results = Post.objects.filter(category__slug = category)
 	elif query:
 	    results = Post.objects.filter(Q(title__icontains=query) | Q(content__icontains=query))
 	else:

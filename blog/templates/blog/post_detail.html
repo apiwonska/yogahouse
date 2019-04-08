@@ -25,7 +25,7 @@
 				</header>
 				<div><img src="{{post.image.url}}" class="img-fluid mb-5"></div>											
 				<div class="text-justify">
-					{{post.content|linebreaks}}
+					{{post.content|safe|linebreaks}}
 					<a href="{% url 'blog:posts' %}" class="btn btn-info"><i class="fas fa-long-arrow-alt-left"></i> Powrót</a>
 				</div>						
 			</div>

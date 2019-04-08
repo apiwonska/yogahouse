@@ -4,6 +4,7 @@ from django.utils.timezone import now
 
 from imagekit.models import ImageSpecField, ProcessedImageField
 from imagekit.processors import ResizeToFill
+from ckeditor.fields import RichTextField
 
 # Create your models here.
 
@@ -25,7 +26,7 @@ class Category(models.Model):
 
 class Post(models.Model):
 	title = models.CharField(max_length=200, verbose_name='Tytuł')
-	content = models.TextField(verbose_name='Treść')
+	content = RichTextField(verbose_name='Treść')
 	image = ProcessedImageField(
 		upload_to = 'img/blog',
 		processors=[ResizeToFill(920,460)],

@@ -26,6 +26,8 @@ urlpatterns = [
     path('wydarzenia/', include('events.urls')),
     path('kontakt/', include('contact.urls')),
     path('blog/', include('blog.urls')),
+    path('accounts/', include('django.contrib.auth.urls')),
+    path('accounts/', include('registration.urls')),
 ]
 
 if settings.DEBUG:

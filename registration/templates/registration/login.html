@@ -1,0 +1,43 @@
+{% extends 'core/base.html' %}
+{% load static %}
+
+{% block content %}
+
+<div class="registration-forms pt-5">
+	<div class="container">
+		<div class="row">			
+			<div class="col-lg-6 mx-auto">
+				{% if 'register' in request.GET %}
+				<p style="color:rgb(87,188,144);" class="mb-4">Gratulacje! Konto użytkownika zostało utworzone. Możesz się zalogować.</p>
+				{% endif %}
+				<!-- Login Form -->
+				<h3 class="mb-5">Logowanie</h3>
+				<form method="POST" action="{% url 'login' %}" class="mb-5">
+					{% csrf_token %}
+					<div class="form-group">
+						<label for="id_username">Nazwa użytkownika</label>
+						<input id="id_username" type="text" name="username" autofocus="" maxlength="254" required=""  
+						class="form-control" placeholder="Wpisz nazwę użytkownika">
+					</div>
+					<div class="form-group">
+						<label for="id_password">Hasło</label>
+						<input id="id_password" type="password" name="password" required=""  
+						class="form-control" placeholder="Wpisz hasło">
+					</div>
+					{% if form.non_field_errors %}
+						<p style="color:red;"><i>Nazwa lub hasło użytkownika niepoprawne. Spróbuj ponownie.</i></p>
+					{% endif %}
+					<button type="submit" class="btn btn-block btn-info mt-5">Zaloguj</button>					
+				</form> 
+				<p>
+					Nie pamiętasz swojego hasła? Kliknij <a href="{% url 'password_reset' %}" style="color:grey;">tutaj</a>.
+				</p>
+				<p>
+					Jeśli jeszcze nie masz konta, kliknij <a href="{% url 'signup' %}" style="color:grey;">tutaj</a>.
+				</p>
+			</div>
+		</div>
+	</div>
+</div>
+
+{% endblock %}

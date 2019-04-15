@@ -29,6 +29,10 @@
 	color: var(--forest-color);
 }
 
+#loginIcons a{
+	color: var(--marine-color);
+}
+
 #mainNav {
 	background-color: var(--marine-color);
 }
@@ -69,6 +73,21 @@
 	font-family: 'Ubuntu', sans-serif;
 	font-size: 0.8rem;
 	color: white;
+}
+
+#userNav {
+	background: lightgrey;
+}
+
+#userNav .nav-item .nav-link {
+	font-family: 'Ubuntu', sans-serif;
+	font-weight: bold;
+	font-size: 0.9rem;
+	color: grey;
+}
+
+#userNav .nav-item a:hover {
+	color: black;
 }
 
 .style-light {
@@ -308,3 +327,18 @@
 /*--------------EVENTS.HTML-------------------*/
 
 
+/*--------------LOGIN.HTML-------------------*/
+
+
+
+/*--------------SIGNUP.HTML-------------------*/
+
+.registration-forms ul, .helptext {
+	font-size: 0.9rem;
+	color: grey;
+}
+
+.registration-forms .errorlist {
+	color: red;
+	margin-bottom: 4px;
+}

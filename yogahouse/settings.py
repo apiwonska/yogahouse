@@ -31,6 +31,7 @@ ALLOWED_HOSTS = []
 # Application definition
 
 INSTALLED_APPS = [
+    'registration', 
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -45,9 +46,9 @@ INSTALLED_APPS = [
     'classes.apps.ClassesConfig',
     'contact',
     'core',
-    'events.apps.EventsConfig',    
+    'events.apps.EventsConfig',       
     'schedule.apps.ScheduleConfig',
-    'social.apps.SocialConfig',    
+    'social.apps.SocialConfig',   
 ]
 
 MIDDLEWARE = [
@@ -135,6 +136,10 @@ USE_TZ = True
 
 STATIC_URL = '/static/'
 
+# Authorization redirection
+LOGIN_REDIRECT_URL = 'home'
+LOGOUT_REDIRECT_URL = 'home'
+
 STATICFILES_DIRS = (
         os.path.join(BASE_DIR,'events'),
         os.path.join(BASE_DIR,'blog'),
@@ -153,6 +158,7 @@ EMAIL_HOST = 'smtp.mailtrap.io'
 EMAIL_HOST_USER = '5b3f223c9430b2'
 EMAIL_HOST_PASSWORD = '2c8b8001109b86'
 EMAIL_PORT = '2525'
+
 
 # Ckeditor
 CKEDITOR_CONFIGS = {

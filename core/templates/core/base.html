@@ -23,15 +23,20 @@
 </head>
 
 <body>
-	<div class="" id="siteHeading">
-		<h1 class="text-center d-none d-lg-block py-4 mb-0 tstyle-brand">Yoga House </h1>				
+	<div class="container">
+		<div class="row justify-content-center">
+			<div class="d-none d-lg-block py-4 mb-0" id="siteHeading">
+				<h1 class=" tstyle-brand">Yoga House </h1>				
+			</div>
+		</div>
 	</div>
-
-
-	<!-- Navigation -->
+	
+	<!-- Main Navigation -->
 	<nav class="navbar navbar-expand-lg navbar-dark py-3" id="mainNav">
 		<div class="container">
+
 			<a href="{% url 'home' %}" class="navbar-brand text-expanded d-lg-none tstyle-brand">Yoga House</a>	
+
 			<button class="navbar-toggler" data-toggle="collapse" data-target="#navbarCollapse">
 				<span class="navbar-toggler-icon icon-color"></span>
 			</button>
@@ -63,9 +68,27 @@
 					</li>
 					<li class="nav-item px-lg-3 {% if request.path == '/blog/' %} active {% endif %}">
 						<a href="{% url 'blog:posts' %}" class="nav-link text-expanded">Blog</a>                       
-					</li>
+					</li>			
 				</ul>
 			</div>			
+		</div>    
+	</nav>
+
+	<!-- User Login Navbar -->
+	<nav class="navbar navbar-light navbar-expand py-1 justyfy-content-right" id="userNav">
+		<div class="container">		
+			<ul class="navbar-nav ml-auto ">
+				<li class="nav-item px-lg-3 ">
+					<span class="nav-link  text-expanded">STREFA KURSANTA |</span>
+				</li> 				
+				<li class="nav-item ">
+					{% if not request.user.is_authenticated %}
+						<a href="{% url 'login' %}" class="nav-link  text-expanded"><i class="fas fa-user"></i>&nbsp;&nbsp;Zaloguj</a>
+					{% else %}
+						<a href="{% url 'logout' %}" class="nav-link  text-expanded"><i class="fas fa-power-off"></i>&nbsp;&nbsp;Wyloguj</a>
+					{% endif %}
+				</li>   
+			</ul>	
 		</div>    
 	</nav>
 

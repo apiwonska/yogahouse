@@ -8,7 +8,7 @@
 	<meta name="description" content="">
 	<meta name="author" content="">
 
-	<title>Yoga House | Studio Jogi</title>
+	<title>{% block title %}{% endblock%} Yoga House - Studio Jogi</title>
 
 	{% load static %}
 	
@@ -20,109 +20,115 @@
 	<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.3.1/css/all.css" integrity="sha384-mzrmE5qonljUremFsqc01SB46JvROS7bZs3IO2EmfFsd15uHvIt+Y8vEf7N7fWAU" crossorigin="anonymous">
 	<link href="https://fonts.googleapis.com/css?family=Pacifico|Ubuntu|KoHo|Hebo|Lato" rel="stylesheet"> 
 
+	<link rel="shortcut icon" href="{% static 'core/img/favicon.ico' %}"/>
+
 </head>
 
 <body>
-	<div class="container">
-		<div class="row justify-content-center">
-			<div class="d-none d-lg-block py-4 mb-0" id="siteHeading">
-				<h1 class=" tstyle-brand">Yoga House </h1>				
+	<div id="page-container">
+		<div id="content-wrap">	
+			<div class="container">
+				<div class="row justify-content-center">
+					<div class="d-none d-lg-block py-4 mb-0" id="siteHeading">
+						<h1 class=" tstyle-brand">Yoga House </h1>				
+					</div>
+				</div>
 			</div>
+			
+			<!-- Main Navigation -->
+			<nav class="navbar navbar-expand-lg navbar-dark py-3" id="mainNav">
+				<div class="container">
+
+					<a href="{% url 'home' %}" class="navbar-brand text-expanded d-lg-none tstyle-brand">Yoga House</a>	
+
+					<button class="navbar-toggler" data-toggle="collapse" data-target="#navbarCollapse">
+						<span class="navbar-toggler-icon icon-color"></span>
+					</button>
+					<div class="collapse navbar-collapse" id="navbarCollapse">
+						<ul class="navbar-nav mx-auto">
+							<li class="nav-item px-lg-3 {% if request.path == '/' %} active {% endif %}">
+								<a href="{% url 'home' %}" class="nav-link text-expanded">Strona Główna</a>                      
+							</li>
+							<li class="nav-item px-lg-3 {% if request.path == '/o-nas/' %} active {% endif %}">
+								<a href="{% url 'about:about' %}" class="nav-link text-expanded">O Nas</a>						
+							</li>    					    
+							<li class="nav-item px-lg-3 dropdown {% if '/zajecia/' in request.path %} active {% endif %}">						
+								<a href="{% url 'classes:classes' %}" class="nav-link text-expanded dropdown-toggle" data-toggle="dropdown">Zajęcia   
+								<span class="caret"></span></a>
+								<ul class="dropdown-menu">							
+									<li><a class="dropdown-item px-3" href="{% url 'classes:classes' %}">Rodzaje Zajęć</a></li>
+									<li><a class="dropdown-item px-3" href="{% url 'classes:prices' %}">Ceny</a></li>
+									<li><a class="dropdown-item px-3" href="{% url 'classes:conditions' %}">Regulamin</a></li>
+								</ul>                    
+							</li>
+							<li class="nav-item px-lg-3 {% if request.path == '/grafik/' %} active {% endif %}">
+								<a href="{% url 'schedule:week_view' %}" class="nav-link text-expanded "><i class="far fa-calendar-alt"></i> Grafik</a>						
+							</li>   
+							<li class="nav-item px-lg-3 {% if request.path == '/wydarzenia/' %} active {% endif %}">
+								<a href="{% url 'events:events' %}" class="nav-link text-expanded">Wydarzenia</a>                       
+							</li>
+							<li class="nav-item px-lg-3 {% if request.path == '/kontakt/' %} active {% endif %}">
+								<a href="{% url 'contact:contact' %}" class="nav-link  text-expanded">Kontakt</a>                       
+							</li>
+							<li class="nav-item px-lg-3 {% if request.path == '/blog/' %} active {% endif %}">
+								<a href="{% url 'blog:posts' %}" class="nav-link text-expanded">Blog</a>                       
+							</li>			
+						</ul>
+					</div>			
+				</div>    
+			</nav>
+
+			<!-- User Login Navbar -->
+			<nav class="navbar navbar-light navbar-expand py-1 justyfy-content-right" id="userNav">
+				<div class="container">		
+					<ul class="navbar-nav ml-auto ">
+						<li class="nav-item px-lg-3 ">
+							<span class="nav-link  text-expanded">STREFA KURSANTA |</span>
+						</li> 				
+						<li class="nav-item ">
+							{% if not request.user.is_authenticated %}
+								<a href="{% url 'login' %}" class="nav-link  text-expanded"><i class="fas fa-user"></i>&nbsp;&nbsp;Zaloguj</a>
+							{% else %}
+								<a href="{% url 'logout' %}" class="nav-link  text-expanded"><i class="fas fa-power-off"></i>&nbsp;&nbsp;Wyloguj</a>
+							{% endif %}
+						</li>   
+					</ul>	
+				</div>    
+			</nav>
+
+			<!-- Content -->
+			{% block content %}
+			{% endblock %}
+
+			<!-- Footer -->
+			<footer id="footer" class="footer text-center py-5">
+				<div class="container">
+					<p id="social-link">
+						<a href="{{ LINK_FACEBOOK }}" >
+							<span class="fa-stack fa-1x">
+								<i class="fa fa-circle fa-stack-2x"></i>
+								<i class="fab fa-facebook-f fa-stack-1x fa-inverse"></i>
+							</span>
+						</a>
+						<a href="{{ LINK_INSTAGRAM }}" class=" mx-2">
+							<span class="fa-stack fa-1x">
+								<i class="fa fa-circle fa-stack-2x"></i>
+								<i class="fab fa-instagram fa-stack-1x fa-inverse"></i>
+							</span>
+						</a>
+						<a href="{{ LINK_YOUTUBE }}" class="">
+							<span class="fa-stack fa-1x">
+								<i class="fa fa-circle fa-stack-2x"></i>
+								<i class="fab fa-youtube fa-stack-1x fa-inverse"></i>
+							</span>
+						</a>
+					</p>
+					<p class="m-0 mbt1">&copy; Anna Piwońska 2018</p>
+					<a href="" class="link" data-toggle="modal" data-target="#creditsModal">Credits</a>
+				</div>
+			</footer>
 		</div>
 	</div>
-	
-	<!-- Main Navigation -->
-	<nav class="navbar navbar-expand-lg navbar-dark py-3" id="mainNav">
-		<div class="container">
-
-			<a href="{% url 'home' %}" class="navbar-brand text-expanded d-lg-none tstyle-brand">Yoga House</a>	
-
-			<button class="navbar-toggler" data-toggle="collapse" data-target="#navbarCollapse">
-				<span class="navbar-toggler-icon icon-color"></span>
-			</button>
-			<div class="collapse navbar-collapse" id="navbarCollapse">
-				<ul class="navbar-nav mx-auto">
-					<li class="nav-item px-lg-3 {% if request.path == '/' %} active {% endif %}">
-						<a href="{% url 'home' %}" class="nav-link text-expanded">Strona Główna</a>                      
-					</li>
-					<li class="nav-item px-lg-3 {% if request.path == '/o-nas/' %} active {% endif %}">
-						<a href="{% url 'about:about' %}" class="nav-link text-expanded">O Nas</a>						
-					</li>    					    
-					<li class="nav-item px-lg-3 dropdown {% if '/zajecia/' in request.path %} active {% endif %}">						
-						<a href="{% url 'classes:classes' %}" class="nav-link text-expanded dropdown-toggle" data-toggle="dropdown">Zajęcia   
-						<span class="caret"></span></a>
-						<ul class="dropdown-menu">							
-							<li><a class="dropdown-item px-3" href="{% url 'classes:classes' %}">Rodzaje Zajęć</a></li>
-							<li><a class="dropdown-item px-3" href="{% url 'classes:prices' %}">Ceny</a></li>
-							<li><a class="dropdown-item px-3" href="{% url 'classes:conditions' %}">Regulamin</a></li>
-						</ul>                    
-					</li>
-					<li class="nav-item px-lg-3 {% if request.path == '/grafik/' %} active {% endif %}">
-						<a href="{% url 'schedule:schedule' %}" class="nav-link text-expanded "><i class="far fa-calendar-alt"></i> Grafik</a>						
-					</li>   
-					<li class="nav-item px-lg-3 {% if request.path == '/wydarzenia/' %} active {% endif %}">
-						<a href="{% url 'events:events' %}" class="nav-link text-expanded">Wydarzenia</a>                       
-					</li>
-					<li class="nav-item px-lg-3 {% if request.path == '/kontakt/' %} active {% endif %}">
-						<a href="{% url 'contact:contact' %}" class="nav-link  text-expanded">Kontakt</a>                       
-					</li>
-					<li class="nav-item px-lg-3 {% if request.path == '/blog/' %} active {% endif %}">
-						<a href="{% url 'blog:posts' %}" class="nav-link text-expanded">Blog</a>                       
-					</li>			
-				</ul>
-			</div>			
-		</div>    
-	</nav>
-
-	<!-- User Login Navbar -->
-	<nav class="navbar navbar-light navbar-expand py-1 justyfy-content-right" id="userNav">
-		<div class="container">		
-			<ul class="navbar-nav ml-auto ">
-				<li class="nav-item px-lg-3 ">
-					<span class="nav-link  text-expanded">STREFA KURSANTA |</span>
-				</li> 				
-				<li class="nav-item ">
-					{% if not request.user.is_authenticated %}
-						<a href="{% url 'login' %}" class="nav-link  text-expanded"><i class="fas fa-user"></i>&nbsp;&nbsp;Zaloguj</a>
-					{% else %}
-						<a href="{% url 'logout' %}" class="nav-link  text-expanded"><i class="fas fa-power-off"></i>&nbsp;&nbsp;Wyloguj</a>
-					{% endif %}
-				</li>   
-			</ul>	
-		</div>    
-	</nav>
-
-	<!-- Content -->
-	{% block content %}
-	{% endblock %}
-
-	<!-- Footer -->
-	<footer class="footer text-center py-5">
-		<div class="container">
-			<p id="social-link">
-				<a href="{{ LINK_FACEBOOK }}" >
-					<span class="fa-stack fa-1x">
-						<i class="fa fa-circle fa-stack-2x"></i>
-						<i class="fab fa-facebook-f fa-stack-1x fa-inverse"></i>
-					</span>
-				</a>
-				<a href="{{ LINK_INSTAGRAM }}" class=" mx-2">
-					<span class="fa-stack fa-1x">
-						<i class="fa fa-circle fa-stack-2x"></i>
-						<i class="fab fa-instagram fa-stack-1x fa-inverse"></i>
-					</span>
-				</a>
-				<a href="{{ LINK_YOUTUBE }}" class="">
-					<span class="fa-stack fa-1x">
-						<i class="fa fa-circle fa-stack-2x"></i>
-						<i class="fab fa-youtube fa-stack-1x fa-inverse"></i>
-					</span>
-				</a>
-			</p>
-			<p class="m-0 mbt1">&copy; Anna Piwońska 2018</p>
-			<a href="" class="link" data-toggle="modal" data-target="#creditsModal">Credits</a>
-		</div>
-	</footer>
 
 	<!-- Credits Modal -->
 	<div class="modal" id="creditsModal">

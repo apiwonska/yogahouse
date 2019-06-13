@@ -5,6 +5,22 @@
 	--grey-color: rgb(165,165,175);
 }
 
+#page-container {
+	position: relative;
+	min-height: 100vh;
+}
+
+#content-wrap {
+	padding-bottom: 202px;
+}
+
+#footer {
+	position: absolute;
+	bottom:0;
+	width: 100%;
+	height: 202px;
+}
+
 .tstyle-brand {
 	font-family: 'Pacifico';
 }
@@ -154,6 +170,12 @@
     top: 5px;
 }
 
+@media screen and (max-width: 768px) {
+	.mobile-mb-3 {
+		margin-bottom: 16px;
+	}
+}
+
 /*--------------HOME.HTML-------------------*/
 .dark-overlay {
 	position: absolute;
@@ -255,6 +277,7 @@
 }
 
 /*-------------SCHEDULE.HTML-----------------*/
+
 
 #schedule-md thead th {
 	width: 12.5%;

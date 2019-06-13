@@ -46,7 +46,7 @@ INSTALLED_APPS = [
     'classes.apps.ClassesConfig',
     'contact',
     'core',
-    'events.apps.EventsConfig',       
+    'events.apps.EventsConfig',     
     'schedule.apps.ScheduleConfig',
     'social.apps.SocialConfig',   
 ]
@@ -130,9 +130,6 @@ USE_L10N = True
 
 USE_TZ = True
 
-
-# Static files (CSS, JavaScript, Images)
-# https://docs.djangoproject.com/en/2.1/howto/static-files/
 
 STATIC_URL = '/static/'
 

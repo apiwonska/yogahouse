@@ -1,0 +1,171 @@
+{% extends 'core/base.html' %}
+{% load static %}
+
+{% block title %} Grafik | {% endblock %}
+
+{% block content %}
+
+	<!-- Schedule Table -->
+	<section class="pt-5" id="schedule" >
+		<div class="container">
+			<!-- Go to another week (next or previous) -->
+			<div class="row justify-content-center mb-4">
+				<div class="d-flex align-items-center justify-content-center col-md col-xl-4 mobile-mb-3">
+					<h4>
+						<a href="{% url 'schedule:week_view' %}" class="text-uppercase btn btn-outline-secondary mx-2">
+							Wyświetl plan na bieżący tydzień
+						</a>
+					</h4>
+				</div>
+				<div class="d-flex align-items-center justify-content-between col-md col-xl-4">
+					<h4>
+						<a href="{% url 'schedule:week_view' %}?day={{start_previous_week}}" class="mx-4">
+							<i class="fas fa-angle-left"></i>
+						</a>
+					</h4>
+					<h4>{{weekdays.0.1}}&nbsp-&nbsp{{weekdays.6.1}}	</h4>
+					<h4>
+						<a href="{% url 'schedule:week_view' %}?day={{start_next_week}}" class="mx-4">
+							<i class="fas fa-angle-right"></i>
+						</a>
+					</h4>
+				</div>				
+			</div>	
+			
+			<!-- SCHEDULE FOR MEDIUM SCREEN AND BIGGER /Table/ -->
+			<div class="row" id="schedule-md">
+				<div class="col d-none d-md-block table-responsive">
+								
+					<!-- Filter by class type -->
+					<form method="GET" action="{% url 'schedule:week_view' %}">
+						{% if day %}
+							<input type="hidden" name="day" value="{{day}}">
+						{% endif %}
+						<div class="form-row d-flex justify-content-end mb-3">
+							<div class="form-group mr-2">		      
+						      <select id="inputClasstype" class="form-control" name="class-type" onchange="this.form.submit()">
+						        <option value='' {% if not classtype %} selected {% endif %}> Wszystkie zajęcia... </option>
+						        {% for c in class_types %}
+						        <option value={{c.slug}} {% if classtype == c.slug %} selected {% endif %} >{{ c.name }}</option>	
+						        {% endfor %}
+						      </select>
+						    </div>							
+						</div>	
+					</form>	 
+					<!--Table schedule -->
+					<table class="table table-bordered text-center">
+						<thead class="text-uppercase ">
+							<tr>
+								<th>Godz.</th>
+								{% for day in weekdays %}									
+									<th style="{% if day.2 == today %}background-color:#60606c;{% endif %}"> 
+									{{day.0}} </br> {{day.1}} 
+									</th>							
+								{% endfor %}
+							</tr>							
+						</thead>
+						<tbody>
+							{% for t in start_time %}
+							<tr>
+								<th>{{t|time:"G:i"}}</th>
+								<!-- Classes in (big) schedule -->
+								{% for day in weekdays %}
+									<td>
+										{% for class in classes_during_week %}
+											{% if day.2 == class.date and t == class.start_time %}
+										 		<button 
+										 		type="button"
+										 		class="btn btn-sm" 
+										 		style="color:white; background-color:{{class.course.class_type.color}};"
+										 		data-toggle="modal" 
+										 		data-target="#classModal{{class.id}}">
+										 			{{class.course.class_type}} 
+										 			<br>
+										 			<small>{{ class.teacher.name }}</small>
+										 		</button> 
+										 		<!-- Class Modal -->
+												<div class="modal schedule-modal" id="classModal{{class.id}}">
+													<div class="modal-dialog">
+														<div class="modal-content">
+															<div class="modal-header">
+																<h5 class="modal-title">{{class.course.class_type}}</h5>
+																<button class="close" data-dismiss="modal">
+																	<span>&times;</span>
+																</button>
+															</div>
+															<div class="modal-body">
+																<div class="px-3">																
+																	<div class="row">
+																		<div class="col-4">
+																			<h6 class="mb-3">Instruktor:</h6>
+																			<img src="{{ class.teacher.description.image.url }}" class="img-fluid rounded-circle mb-3">
+																			<p class="text-center"><a href="{% url 'about:about' %}" >{{ class.teacher.name }}</a></p>
+																		</div>
+																		<div class="col-8">
+																			<h6 class="mb-3">Opis zajęć:</h6>
+																			<p class="text-justify mb-2">
+																				{{class.course.class_type.description.description|truncatewords:50}}
+																				<a href="{% url 'classes:classes' %}" >Dowiedz się więcej</a>
+																			</p>																
+																		</div>
+																	</div>
+																</div>			
+															</div>	
+															<div class="modal-footer">	
+																<button class="btn btn-secondary" data-dismiss="modal">Close</button>
+															</div>			
+														</div>
+													</div>
+												</div>
+										 	{% endif %}											
+										{% endfor %}
+									</td>
+								{% endfor %}
+							</tr>
+							{% endfor %}					
+						</tbody>
+					</table>
+					{% if message %} <p class="text-center mt-4" style="color:grey;"> {{ message }} </p> {% endif %}
+				</div>
+			</div>	
+
+			<!-- SCHEDULE FOR SMALL SCREENS /Accordeon/ -->
+			<div class="row">
+				<div class="col d-md-none" id="schedule-sm">
+					{% if message %}<p class="text-center mb-4" style="color:grey;"> {{ message }} </p> {% endif %}
+					{% if classes_during_week %}
+						{% 	for day in weekdays %}
+							<div class="card">
+								<div class="card-header text-center">
+									<h5 class="mb-0">
+										<div href="#collapse_{{day.0}}" data-toggle="collapse" data-parent="#schedule-sm">
+											<i class="fas fa-arrow-circle-down"></i>&nbsp{{ day.0 }}&nbsp-&nbsp{{day.1}}
+										</div>
+									</h5>
+								</div>
+								<div id="collapse_{{day.0}}" class="collapse">
+									<div class="card-body">
+										<table class="">	
+											<tbody>
+												{% for class in classes_during_week %}
+													{% if day.2 == class.date %}
+														<tr>
+															<td>{{ class.start_time|time:"G:i" }} - {{ class.course.class_type }}  / <small class="text-muted">{{ class.teacher.name }}</small></td>				
+														</tr>
+													{% endif %}
+												{% endfor %}										
+											</tbody>
+										</table>
+									</div>
+								</div>
+							</div>
+						{% endfor %}
+					{% endif %}
+
+				</div>
+			</div>
+
+		</div>
+	</section>
+
+{% endblock %}

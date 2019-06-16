@@ -11,10 +11,10 @@
 			<!-- Go to another week (next or previous) -->
 			<div class="row justify-content-center mb-4">
 				<div class="d-flex align-items-center justify-content-center col-md col-xl-4 mobile-mb-3">
-					<h4>
+					<h4>						
 						<a href="{% url 'schedule:week_view' %}" class="text-uppercase btn btn-outline-secondary mx-2">
 							Wyświetl plan na bieżący tydzień
-						</a>
+						</a> 
 					</h4>
 				</div>
 				<div class="d-flex align-items-center justify-content-between col-md col-xl-4">
@@ -37,11 +37,11 @@
 				<div class="col d-none d-md-block table-responsive">
 								
 					<!-- Filter by class type -->
-					<form method="GET" action="{% url 'schedule:week_view' %}">
+					<form method="GET" action="">
 						{% if day %}
 							<input type="hidden" name="day" value="{{day}}">
 						{% endif %}
-						<div class="form-row d-flex justify-content-end mb-3">
+						<div class="form-row d-flex justify-content-end mb-3"> 
 							<div class="form-group mr-2">		      
 						      <select id="inputClasstype" class="form-control" name="class-type" onchange="this.form.submit()">
 						        <option value='' {% if not classtype %} selected {% endif %}> Wszystkie zajęcia... </option>
@@ -85,7 +85,7 @@
 										 		</button> 
 										 		<!-- Class Modal -->
 												<div class="modal schedule-modal" id="classModal{{class.id}}">
-													<div class="modal-dialog">
+													<div class="modal-dialog modal-dialog-centered">
 														<div class="modal-content">
 															<div class="modal-header">
 																<h5 class="modal-title">{{class.course.class_type}}</h5>
@@ -99,19 +99,65 @@
 																		<div class="col-4">
 																			<h6 class="mb-3">Instruktor:</h6>
 																			<img src="{{ class.teacher.description.image.url }}" class="img-fluid rounded-circle mb-3">
-																			<p class="text-center"><a href="{% url 'about:about' %}" >{{ class.teacher.name }}</a></p>
+																			<p class="text-center">
+																				<a href="{% url 'about:about' %}" >{{ class.teacher.name }}</a>
+																			</p>																
 																		</div>
 																		<div class="col-8">
 																			<h6 class="mb-3">Opis zajęć:</h6>
 																			<p class="text-justify mb-2">
-																				{{class.course.class_type.description.description|truncatewords:50}}
+																				{{class.course.class_type.description.description|truncatewords:40}}
 																				<a href="{% url 'classes:classes' %}" >Dowiedz się więcej</a>
-																			</p>																
+																			</p>
 																		</div>
 																	</div>
+																	<hr>
+																	<div class="row mt-2">
+																		<div class="col text-left">
+																			<p class="mb-0" style="color:black;">
+																				Dzień: <b>{{class.date}}</b> &nbsp|&nbsp Godz: <b>{{class.start_time}}</b> &nbsp|&nbsp Czas trwania: {{class.course.duration}}min<br>
+																				Wolnych miejsc: <b>{{class.number_of_places_left}}</b>
+																			</p>																			
+																		</div>																		
+																	</div> 
 																</div>			
 															</div>	
-															<div class="modal-footer">	
+															
+															<div class="modal-footer">
+																{% if user.is_authenticated %}	
+																	<p 	class="mb-0 mx-4">{{ messages.modal }}</p>	
+																	{% if class.status == 'Planowane' %}
+																		{% if user not in class.students.all  %}
+																			{% if class.number_of_places_left > 0 %}
+																				<form action="" method="POST">
+																					{% csrf_token %}
+																					<input type="hidden" name="class-id" value="{{class.id}}">
+																					<input type="hidden" name="action" value="sign-up">
+																					<input type="hidden" name="modal" value="True">
+																					<button class="btn btn-info" type="submit">
+																						Zapisz się	
+																					</button>
+																				</form>
+																			{% else %}
+																				<p 	class="mb-0 mx-4" style="color:red;"> <b>Brak wolnych miejsc</b> </p>
+																			{% endif %}
+																		{% else %}
+																			<form action="" method="POST">
+																				{% csrf_token %}
+																				<input type="hidden" name="class-id" value="{{class.id}}">
+																				<input type="hidden" name="action" value="sign-off">
+																				<input type="hidden" name="modal" value="True">
+																				<button class="btn btn-info" type="submit">
+																					Wypisz się	
+																				</button>
+																			</form>
+																		{% endif %}
+																	{% elif class.status == 'Trwają' %}
+																		<p 	class="mb-0 mx-4" style="color:red;"> <b>Zapisy zakończone</b> </p>								
+																	{% elif class.status == 'Zakończone' %}
+																		<p 	class="mb-0 mx-4" style="color:red;"> <b>Te zajęcia już się odbyły</b> </p>
+																	{% endif %}																	
+																{% endif %} 																
 																<button class="btn btn-secondary" data-dismiss="modal">Close</button>
 															</div>			
 														</div>
@@ -125,14 +171,15 @@
 							{% endfor %}					
 						</tbody>
 					</table>
-					{% if message %} <p class="text-center mt-4" style="color:grey;"> {{ message }} </p> {% endif %}
+					{% if messages %} <p class="text-center mt-4" style="color:grey;"> {{ messages.week_view }} </p> {% endif %}
 				</div>
 			</div>	
 
 			<!-- SCHEDULE FOR SMALL SCREENS /Accordeon/ -->
 			<div class="row">
 				<div class="col d-md-none" id="schedule-sm">
-					{% if message %}<p class="text-center mb-4" style="color:grey;"> {{ message }} </p> {% endif %}
+					{% if messages.week_view %}<p class="text-center mb-3" style="color:grey;"> {{ messages.week_view }} </p> {% endif %}
+					{% if messages.modal %}<p class="text-center mb-3" style="color:grey;"><i>{{ messages.modal }}</i> </p> {% endif %}
 					{% if classes_during_week %}
 						{% 	for day in weekdays %}
 							<div class="card">
@@ -143,14 +190,36 @@
 										</div>
 									</h5>
 								</div>
-								<div id="collapse_{{day.0}}" class="collapse">
+								<div id="collapse_{{day.0}}" class="collapse {% if submit.day == day.0 %} show {% endif %}">
 									<div class="card-body">
 										<table class="">	
 											<tbody>
 												{% for class in classes_during_week %}
 													{% if day.2 == class.date %}
 														<tr>
-															<td>{{ class.start_time|time:"G:i" }} - {{ class.course.class_type }}  / <small class="text-muted">{{ class.teacher.name }}</small></td>				
+															<td class="d-flex align-items-center">
+																<span><b>{{ class.start_time|time:"G:i" }}</b> - {{ class.course.class_type }} / 
+																<small class="text-muted align-bottom">{{ class.teacher.name }}</small>  </span>	
+																{% if user.is_authenticated and class.status == 'Planowane' %} 
+																	{% if user not in class.students.all and class.number_of_places_left > 0 %}
+																		<form action="" method="POST">
+																			{% csrf_token %}
+																			<input type="hidden" name="class-id" value="{{class.id}}">
+																			<input type="hidden" name="action" value="sign-up">
+																			<input type="hidden" name="day" value={{day.0}}>
+																			<button class="btn btn-info btn-sm ml-2" type="submit">Zapisz</button>		
+																		</form>
+																	{% elif user in class.students.all  %}
+																		<form action="" method="POST">
+																			{% csrf_token %}
+																			<input type="hidden" name="class-id" value="{{class.id}}">
+																			<input type="hidden" name="action" value="sign-off">
+																			<input type="hidden" name="day" value={{day.0}}>
+																			<button class="btn btn-info btn-sm ml-2" type="submit">Wypisz</button>
+																		</form>
+																	{% endif %}
+																{% endif %}															
+															</td>				
 														</tr>
 													{% endif %}
 												{% endfor %}										
@@ -167,5 +236,17 @@
 
 		</div>
 	</section>
+
+{% endblock %}
+
+{% block js %} 
+
+	{% if submit.modal %}
+		<script type="text/javascript">
+			$(document).ready(function(){
+				$("#classModal{{submit.class_id}}").modal('show');
+			});
+		</script>
+	{% endif %}
 
 {% endblock %}

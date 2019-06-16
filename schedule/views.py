@@ -2,8 +2,6 @@ from django.shortcuts import render, get_object_or_404
 from .models import Course, ClassOccurrence, ClassType
 from datetime import datetime, date, timedelta
 
-
-
 def class_occurrence_list(request):
 	today = datetime.today()
 	start_current_week = today - timedelta(days = today.weekday())	
@@ -23,13 +21,13 @@ def class_occurrence_list(request):
 	start_next_week = (start_of_week + timedelta(days=7)).date().isoformat()
 	start_previous_week = (start_of_week - timedelta(days=7)).date().isoformat()
 	
-	message = ''
+	messages = {}
 	classtype = request.GET.get('class-type')	
 	# Limits shedule display to x weeks starting from current week
 	if (start_of_week.date() < start_current_week.date() or 
 		start_of_week.date() - start_current_week.date() >= timedelta(weeks=3)) :
 		classes_during_week = []
-		message = 'Grafik niedostępny'
+		messages['week_view'] = 'Grafik niedostępny'
 	elif classtype:
 		classes_during_week = ClassOccurrence.objects.filter(
 			date__in=week_dates, 
@@ -37,19 +35,42 @@ def class_occurrence_list(request):
 			course__class_type__slug=classtype
 			)
 		if classes_during_week.count() == 0:
-			message = 'Brak zaplanowanych zajęć'
+			messages['week_view'] = 'Brak zaplanowanych zajęć'
 	else:
 		classes_during_week = ClassOccurrence.objects.filter(date__in=week_dates, cancelled=False)
 		if classes_during_week.count() == 0:
-			message = 'Brak zaplanowanych zajęć'
+			messages['week_view'] = 'Brak zaplanowanych zajęć'
 
 	# Needed to create rows in week schedule table for each hour
 	start_time = list(set([c.start_time for c in classes_during_week]))
 	start_time.sort()
 	# Needed to display all types of classes in select form
 	class_types = ClassType.objects.all()	
-	
-	return render(request, "schedule/class_occurrence_list.html", {
+
+	submit ={'modal':'', 'day':'', 'class_id':''}	
+	if request.method == "POST":
+		user= request.user
+		action = request.POST.get("action")	
+		class_id = request.POST.get("class-id")		
+		class_occurrence = ClassOccurrence.objects.get(pk = int(class_id))				
+		submit['modal'] = request.POST.get("modal")
+		submit['day'] = request.POST.get("day")
+		submit['class_id'] = class_id
+		if action == 'sign-up' and user not in class_occurrence.students.all() and class_occurrence.number_of_places_left > 0:
+			try:
+				class_occurrence.students.add(user)
+				messages['modal'] = 'Zostałeś zapisany'
+			except:
+				messages['modal'] = 'Coś poszło nie tak. Spróbuj jeszcze raz.'
+		elif action == 'sign-off' and user in class_occurrence.students.all():
+			try:
+				class_occurrence.students.remove(user)
+				messages['modal'] = 'Zostałeś wypisany'
+			except:
+				messages['modal'] = 'Coś poszło nie tak. Spróbuj jeszcze raz.'
+
+	# import pdb; pdb.set_trace();
+	context = {
 		'today':today.date(),
 		'day': day,
 		'weekdays':weekdays,
@@ -59,6 +80,9 @@ def class_occurrence_list(request):
 		'classtype':classtype,
 		'start_next_week':start_next_week,
 		'start_previous_week':start_previous_week,
-		'message': message
-		})
+		'messages': messages,
+		'submit': submit
+		}
+
+	return render(request, "schedule/class_occurrence_list.html", context)
 

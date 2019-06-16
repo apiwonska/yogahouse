@@ -1,4 +1,5 @@
 <!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en">
 
 <head>
@@ -157,15 +158,7 @@
 
 	<!-- Bootstrap -->
 	<script src="{% static 'core/vendor/jquery/jquery.min.js' %}"></script>
-	<script src="{% static 'core/vendor/bootstrap/js/bootstrap.bundle.min.js' %}"></script>
-
-	<script>
-		//Configure Slider
-		$('.carousel').carousel({
-			interval:4000,
-			pause: 'hover'
-		});
-	</script>
+	<script src="{% static 'core/vendor/bootstrap/js/bootstrap.bundle.min.js' %}"></script>	
 
 	<!-- Lightbox -->
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/ekko-lightbox/5.3.0/ekko-lightbox.min.js"></script>
@@ -193,6 +186,8 @@
 		    }, 500);
 		});
 	</script>
+
+	{% block js %} {% endblock %}
 	
 </body>
 

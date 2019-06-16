@@ -9,13 +9,11 @@ from django.utils.text import slugify
 
 
 class ClassType(models.Model):
-    name = models.CharField(max_length=50, unique=True, verbose_name='Nazwa zajęć')
+    name = models.CharField(max_length=50, unique=True,
+                            verbose_name='Nazwa zajęć')
     slug = models.SlugField(unique=True)
-    description = models.ForeignKey(ClassDescription,
-                                    on_delete=models.SET_NULL,
-                                    null=True, blank=True,
-                                    verbose_name='Opis zajęć'
-                                    )
+    description = models.ForeignKey(
+        ClassDescription, on_delete=models.SET_NULL, null=True, blank=True, verbose_name='Opis zajęć')
     color = RGBColorField(default='#007bff', verbose_name='Kolor')
     created = models.DateTimeField(
         auto_now_add=True, verbose_name='Data utworzenia')
@@ -47,11 +45,8 @@ class ClassType(models.Model):
 class Teacher(models.Model):
     name = models.CharField(
         max_length=50, verbose_name='Imię i nazwisko instruktora')
-    description = models.OneToOneField(TeacherDescription,
-                                       on_delete=models.SET_NULL,
-                                       null=True, blank=True,
-                                       verbose_name='Opis instruktora'
-                                       )
+    description = models.OneToOneField(
+        TeacherDescription, on_delete=models.SET_NULL, null=True, blank=True, verbose_name='Opis instruktora')
     created = models.DateTimeField(
         auto_now_add=True, verbose_name='Data utworzenia')
     updated = models.DateTimeField(
@@ -66,16 +61,12 @@ class Teacher(models.Model):
 
 
 class Course(models.Model):
-    class_type = models.ForeignKey(ClassType,
-                                   on_delete=models.CASCADE,
-                                   verbose_name='rodzaj zajęć'
-                                   )
-    name = models.CharField(
-        max_length=300, null=True, blank=True, verbose_name='nazwa kursu')
-    teacher = models.ForeignKey(Teacher,
-                                on_delete=models.CASCADE,
-                                verbose_name='instruktor prowadzący'
-                                )
+    class_type = models.ForeignKey(
+        ClassType, on_delete=models.CASCADE, verbose_name='rodzaj zajęć')
+    name = models.CharField(max_length=300, null=True,
+                            blank=True, verbose_name='nazwa kursu')
+    teacher = models.ForeignKey(
+        Teacher, on_delete=models.CASCADE, verbose_name='instruktor prowadzący')
 
     MONDAY = "1_Poniedziałek"
     TUESDAY = "2_Wtorek"
@@ -167,12 +158,12 @@ class ClassOccurrence(models.Model):
     @property
     def number_of_students(self):
         return self.students.count()
-    # number_of_students.fget.short_description = 'zapisanych'
+    number_of_students.fget.short_description = 'zapisanych'
 
     @property
     def number_of_places_left(self):
         return self.course.max_number_of_students - self.students.count()
-    # number_of_places_left.fget.short_description = 'wolne'
+    number_of_places_left.fget.short_description = 'wolne'
 
     @property
     def status(self):
@@ -191,11 +182,12 @@ class ClassOccurrence(models.Model):
                 return 'Zakończone'
     status.fget.short_description = 'status'
 
-    def clean(self):
-    	# Date has to correspond to the weekday in course instance
+    def clean(self, *args, **kwargs):
+        super(ClassOccurrence, self).clean(*args, **kwargs)
+        # Date has to correspond to the weekday in course instance
         if self.date.isoweekday() != int(self.course.weekday[0]):
-            raise ValidationError(f"Te zajęcia odbywają się w: {self.course.weekday[2:]}. Wybierz inną datę.")
-    	# Checks if date and time is not in the past
+            raise ValidationError({'date': (f"Te zajęcia odbywają się w: {self.course.weekday[2:]}. Wybierz inną datę.")})
+        # Checks if date and time is not in the past
         if datetime.combine(self.date, self.course.start_time) < datetime.now():
             raise ValidationError("Czas zajęć nie może być w przeszłości.")
         # Checks if no time collision with other classes on the same day
@@ -204,18 +196,19 @@ class ClassOccurrence(models.Model):
         start = self.course.start_time
         end = self.course.end_time
         for c in class_same_day:
-            if (c.start_time <= start < c.end_time or 
-            	c.start_time < end <= c.end_time or 
-            	start <= c.start_time and c.end_time <= end):
+            if (c.start_time <= start < c.end_time or
+                    c.start_time < end <= c.end_time or
+                    start <= c.start_time and c.end_time <= end):
                 raise ValidationError(f"Czas trwania zajęć koliduje z zajęciami {c.course.name}")
-        # Replacing teacher has to be different than the teacher in course
+        # Substituting teacher has to be different than the teacher in course
         # instance
         if self.substitute_teacher == self.course.teacher:
-            raise ValidationError(
-                "Zastępstwo nie może się odbywać z instruktorem prowadzącym kurs.")
+            raise ValidationError({'substitute_teacher': (
+                "Zastępstwo nie może się odbywać z instruktorem prowadzącym kurs.")})
 
     def save(self, *args, **kwargs):
-        self.start_time = self.course.start_time
-        self.end_time = self.course.end_time
-        self.main_teacher = self.course.teacher
+        if not self.start_time or not self.end_time or not self.main_teacher:
+            self.start_time = self.course.start_time
+            self.end_time = self.course.end_time
+            self.main_teacher = self.course.teacher
         super(ClassOccurrence, self).save(*args, **kwargs)

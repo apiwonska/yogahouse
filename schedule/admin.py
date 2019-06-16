@@ -4,8 +4,6 @@ from .forms import ClassOccurrenceForm
 from django.forms import TextInput
 from django.db import models
 
-# import pdb; pdb.set_trace()
-
 
 class ClassTypeAdmin(admin.ModelAdmin):
     list_display = ['name', 'slug', 'description', 'color']
@@ -40,7 +38,7 @@ class CourseAdmin(admin.ModelAdmin):
 class ClassOccurrenceAdmin(admin.ModelAdmin):
     save_on_top = True
     save_on_bottom = False    
-    form = ClassOccurrenceForm
+    # form = ClassOccurrenceForm
     search_fields = ['course__name', ]
     list_display = ['date', 'week_number', 'weekday', 'start_time', 'get_course_name',
                     'main_teacher', 'substitute', 'number_of_students', 'number_of_places_left', 'status']

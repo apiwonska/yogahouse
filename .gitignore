@@ -9,3 +9,9 @@ local_settings.py
 db.sqlite3
 /media
 /static
+
+# Unit test / coverage report
+htmlcov/
+.coverage 
+.coveragerc
+setup.cfg

@@ -1,9 +1,11 @@
 from django.urls import path
-from . import views
+
+from .views import class_offer_list, conditions, price_option_list
+
 
 app_name = 'classes'
 urlpatterns = [
-    path('', views.classes, name='classes'),
-    path('ceny/', views.prices, name='prices'),
-    path('regulamin/', views.conditions, name='conditions'),
+    path('', class_offer_list, name='classes'),
+    path('ceny/', price_option_list, name='prices'),
+    path('regulamin/', conditions, name='conditions'),
 ]

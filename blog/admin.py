@@ -1,23 +1,23 @@
 from django.contrib import admin
-from .models import Post, Category
+
+from .models import Category, Post
 
 
 class PostAdmin(admin.ModelAdmin):
     readonly_fields = ['created', 'updated', 'was_published']
     fieldsets = (
-        (None, 									{'fields': ('title', 'content', 'image')}),
-        ('Informacje dodatkowe', 				{
+        (None, {'fields': ('title', 'content', 'image')}),
+        ('Informacje dodatkowe', {
          'fields': (('category', 'author'), 'was_published')}),
-        (
-            'Data utworzenia/ edycji/ publikacji',
+        ('Data utworzenia/ edycji/ publikacji',
             {
                 'fields': ('published', 'created', 'updated'),
-                'classes': ('collapse',), 
-                'description': '<p style="color:red;">Data publikacji może być w przyszłości.</p>'
+                'classes': ('collapse',),
+                'description': 'W momencie tworzenia postu, data publikacji nie powinna być w przeszłości.'
             }
-        ),
+         ),
     )
-  
+
     list_display = ('title', 'author', 'was_published',
                     'published', 'post_categories')
     list_filter = ['published', 'author', 'category']
@@ -32,6 +32,7 @@ class PostAdmin(admin.ModelAdmin):
 class CategoryAdmin(admin.ModelAdmin):
     readonly_fields = ['created', 'updated']
     prepopulated_fields = {'slug': ('name',)}
+
 
 admin.site.register(Post, PostAdmin)
 admin.site.register(Category, CategoryAdmin)

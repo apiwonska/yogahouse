@@ -31,7 +31,7 @@ ALLOWED_HOSTS = []
 # Application definition
 
 INSTALLED_APPS = [
-    'registration', 
+    'registration',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -42,13 +42,13 @@ INSTALLED_APPS = [
     'colorful',
     'imagekit',
     'about.apps.AboutConfig',
-    'blog',    
+    'blog',
     'classes.apps.ClassesConfig',
     'contact',
     'core',
-    'events.apps.EventsConfig',     
+    'events.apps.EventsConfig',
     'schedule.apps.ScheduleConfig',
-    'social.apps.SocialConfig',   
+    'social.apps.SocialConfig',
 ]
 
 MIDDLEWARE = [
@@ -74,7 +74,7 @@ TEMPLATES = [
                 'django.template.context_processors.request',
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
-                'social.processors.ctx_dict',
+                'social.context_processors.ctx_dict',
             ],
         },
     },
@@ -91,9 +91,9 @@ DATABASES = {
         'ENGINE': 'django.db.backends.postgresql',
         'NAME': 'yogahouse',
         'USER': 'anna',
-        'PASSWORD':'password123',
-        'HOST':'localhost',
-        'PORT':'5432',
+        'PASSWORD': 'password123',
+        'HOST': 'localhost',
+        'PORT': '5432',
     }
 }
 
@@ -138,10 +138,9 @@ LOGIN_REDIRECT_URL = 'home'
 LOGOUT_REDIRECT_URL = 'home'
 
 STATICFILES_DIRS = (
-        os.path.join(BASE_DIR,'events'),
-        os.path.join(BASE_DIR,'blog'),
+    os.path.join(BASE_DIR, 'events'),
+    os.path.join(BASE_DIR, 'blog'),
 )
-
 
 
 # Media config
@@ -149,8 +148,7 @@ MEDIA_URL = '/media/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 
 
-
-#Email config
+# Email config
 EMAIL_HOST = 'smtp.mailtrap.io'
 EMAIL_HOST_USER = '5b3f223c9430b2'
 EMAIL_HOST_PASSWORD = '2c8b8001109b86'
@@ -163,7 +161,8 @@ CKEDITOR_CONFIGS = {
         'toolbar': 'Custom',
         'toolbar_Custom': [
             ['Bold', 'Italic', 'Underline'],
-            ['NumberedList', 'BulletedList', '-', 'Outdent', 'Indent', '-', 'JustifyLeft', 'JustifyCenter', 'JustifyRight', 'JustifyBlock'],
+            ['NumberedList', 'BulletedList', '-', 'Outdent', 'Indent', '-',
+                'JustifyLeft', 'JustifyCenter', 'JustifyRight', 'JustifyBlock'],
         ]
     }
 }

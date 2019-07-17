@@ -1,18 +1,24 @@
 from django.contrib import admin
-from .models import Teacher, ClassType, Course, ClassOccurrence
-from .forms import ClassOccurrenceForm
-from django.forms import TextInput
 from django.db import models
+from django.forms import TextInput
+
+from .forms import ClassOccurrenceForm
+from .models import ClassOccurrence, ClassType, Course, Teacher
 
 
 class ClassTypeAdmin(admin.ModelAdmin):
+
     list_display = ['name', 'slug', 'description', 'color']
-    readonly_fields = ['slug', 'created', 'updated']  
+    readonly_fields = ['slug', 'created', 'updated']
+
 
 class TeacherAdmin(admin.ModelAdmin):
+
     readonly_fields = ['created', 'updated']
 
+
 class CourseAdmin(admin.ModelAdmin):
+
     list_display = ('weekday', 'start_time', 'name', 'teacher', 'active')
     list_filter = ['active', 'weekday', 'class_type__name', 'teacher__name']
     fieldsets = (
@@ -36,9 +42,9 @@ class CourseAdmin(admin.ModelAdmin):
 
 
 class ClassOccurrenceAdmin(admin.ModelAdmin):
+    form = ClassOccurrenceForm
     save_on_top = True
-    save_on_bottom = False    
-    # form = ClassOccurrenceForm
+    save_on_bottom = False
     search_fields = ['course__name', ]
     list_display = ['date', 'week_number', 'weekday', 'start_time', 'get_course_name',
                     'main_teacher', 'substitute', 'number_of_students', 'number_of_places_left', 'status']
@@ -81,6 +87,7 @@ class ClassOccurrenceAdmin(admin.ModelAdmin):
         if obj.substitute_teacher:
             return 'Z'
     substitute.short_description = 'zastępstwo'
+
 
 admin.site.register(ClassType, ClassTypeAdmin)
 admin.site.register(Teacher, TeacherAdmin)

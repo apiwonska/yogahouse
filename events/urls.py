@@ -1,8 +1,9 @@
 from django.urls import path
-from . import views
+
+from .views import event_detail, event_list
 
 app_name = 'events'
 urlpatterns = [
-    path('', views.event_list, name='events'),
-    path('<int:event_id>/', views.event_detail, name='event'),
+    path('', event_list, name='events'),
+    path('<int:event_id>/', event_detail, name='event'),
 ]

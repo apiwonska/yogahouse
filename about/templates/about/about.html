@@ -5,87 +5,158 @@
 
 {% block content %}
 
-	<!-- About -->
-	<section id="about-section" class="py-5">
-		<div class="container">
-			<div class="row">
-				<div class="col-lg-9 mx-auto">
-					<div class="row">
-						<div class="col-sm-4 mx-auto align-self-start mb-3">
-							<img src="{{ about_info.image.url }}" class="img-fluid rounded-circle ">
-						</div>
-						<div class="col-sm-8 mx-auto text-center">
-							<h1>O NAS</h1>
-							{{ about_info.presentation }}
-						</div>
-					</div>
-				</div>		
-			</div>
-		</div>
-	</section>
+<!-- About -->
+<section id="about-section" class="py-5">
+  <div class="container">
+    <div class="row">
+      <div class="col-lg-9 mx-auto">
+        <div class="row">
+          <div class="col-md-4 mx-auto align-self-center mb-3 text-center">
+            <img
+              src="{{ about_info.image.url }}"
+              class="img-fluid rounded-circle about-image my-2"
+              alt=""
+            />
+          </div>
+          <div class="col-md-8 mx-auto text-center">
+            <h1 class="text-center mb-4">O Nas</h1>
+            {{ about_info.presentation }}
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
 
-	<!-- Our Teachers -->
-	<section id="teachers-section" class="py-5">
-		<div class="container text-center">
-			<h1 class="mb-5">INSTRUKTORZY</h1>
-			<div class="row">
-				{% for teacher in teachers %}
-				<div class="col-lg-6 my-3 d-flex align-items-stretch">
-					<div class="card ">
-						<div class="card-body ">
-							<img src="{{ teacher.image.url }}" class="img-fluid rounded-circle m-3 w-50">
-							<h3>{{teacher.name}}</h3>
-							<p>{{teacher.description}}</p>
-						</div>
-					</div>					
-				</div>
-				{% endfor %}
-							
-			</div>
-		</div>
-	</section>
+<!-- Our Teachers -->
+<section id="teachers-section" class="py-5">
+  <div class="container text-center">
+    <h2 class="mb-4">Instruktorzy</h2>
+    <div class="row">
+      {% for teacher in teachers %}
+      <div class="col-lg-6 my-3 d-flex align-items-stretch">
+        <div class="card">
+          <div class="card-body">
+            <img
+              src="{{ teacher.image.url }}"
+              class="rounded-circle m-3 w-50"
+              alt=""
+            />
+            <h3 class="m-3">{{teacher.name}}</h3>
+            <p>{{teacher.description}}</p>
+          </div>
+        </div>
+      </div>
+      {% endfor %}
+    </div>
+  </div>
+</section>
 
-	<!-- Studio Gallery -->
-	<section id="studio-gallery" class="text-center py-5">
-		<div class="container">
-			<h1 class="text-center">STUDIO</h1>
-			<p class="text-center">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Amet rem quidem a nihil repellat consectetur, aspernatur voluptatem, placeat qui illum, quo eos. Distinctio, esse amet. 
-			Lorem ipsum dolor sit amet, consectetur adipisicing elit. Dolorum esse quibusdam eveniet, cupiditate, quasi sapiente perspiciatis dolore ratione praesentium, facere corporis necessitatibus incidunt magni libero?</p>
-			<div class="row mb-0">
-				<div class="col-md-4 py-3">
-					<a href="{% static 'core/img/studio1.jpg' %}" data-toggle="lightbox" data-gallery="img-gallery" data-height="750" data-width="1000">
-						<img src="{% static 'core/img/studio1_tn.jpg' %}" class="img-fluid">
-					</a>
-				</div>
-				<div class="col-md-4 py-3">
-					<a href="{% static 'core/img/studio2.jpg' %}" data-toggle="lightbox" data-gallery="img-gallery" data-height="750" data-width="1000">
-						<img src="{% static 'core/img/studio2_tn.jpg' %}" class="img-fluid">
-					</a>
-				</div>
-				<div class="col-md-4 py-3">
-					<a href="{% static 'core/img/studio3.jpg' %}" data-toggle="lightbox" data-gallery="img-gallery" data-height="750" data-width="1000">
-						<img src="{% static 'core/img/studio3_tn.jpg' %}" class="img-fluid">
-					</a>
-				</div>
-			</div>
-			<div class="row mb-4">
-				<div class="col-md-4 py-3">
-					<a href="{% static 'core/img/studio4.jpg' %}" data-toggle="lightbox" data-gallery="img-gallery" data-height="750" data-width="1000">
-						<img src="{% static 'core/img/studio4_tn.jpg' %}" class="img-fluid">
-					</a>
-				</div>
-				<div class="col-md-4 py-3">
-					<a href="{% static 'core/img/studio5.jpg' %}" data-toggle="lightbox" data-gallery="img-gallery" data-height="750" data-width="1000">
-						<img src="{% static 'core/img/studio5_tn.jpg' %}" class="img-fluid">
-					</a>
-				</div>
-				<div class="col-md-4 py-3">
-					<a href="{% static 'core/img/studio6.jpg' %}" data-toggle="lightbox" data-gallery="img-gallery" data-height="750" data-width="1000">
-						<img src="{% static 'core/img/studio6_tn.jpg' %}" class="img-fluid">
-					</a>
-				</div>
-			</div>
-		</div>		
-	</section>
+<!-- Studio Gallery -->
+<section id="studio-gallery" class="text-center mt-5">
+  <div class="container">
+    <h2 class="text-center mb-4">Studio</h2>
+    <p class="text-center">
+      Klimatyczne wnętrze szkoły urządziliśmy tak, by zapewnić uczniom komfort i
+      przyjemność przebywania w pięknym otoczeniu. Dysponujemy tarasem, gdzie przy
+      sprzyjających warunkach pogodowych również odbywają się zajęcia. Do dyspozycji
+      kursantów są szatnie oraz prysznic.
+    </p>
+    <div class="row mb-0">
+      <div class="col-md-4 py-3">
+        <a
+          href="{% static 'core/img/studio1.jpg' %}"
+          data-toggle="lightbox"
+          data-gallery="img-gallery"
+          data-height="750"
+          data-width="1000"
+        >
+          <img
+            src="{% static 'core/img/studio1_tn.jpg' %}"
+            class="img-fluid"
+            alt="Brązowe przeszklone drzwi i dwa schodki przed wejściem do szkoły"
+          />
+        </a>
+      </div>
+      <div class="col-md-4 py-3">
+        <a
+          href="{% static 'core/img/studio2.jpg' %}"
+          data-toggle="lightbox"
+          data-gallery="img-gallery"
+          data-height="750"
+          data-width="1000"
+        >
+          <img
+            src="{% static 'core/img/studio2_tn.jpg' %}"
+            class="img-fluid"
+            alt="Grupa osób ćwiczących jogę na tarasie szkoły"
+          />
+        </a>
+      </div>
+      <div class="col-md-4 py-3">
+        <a
+          href="{% static 'core/img/studio3.jpg' %}"
+          data-toggle="lightbox"
+          data-gallery="img-gallery"
+          data-height="750"
+          data-width="1000"
+        >
+          <img
+            src="{% static 'core/img/studio3_tn.jpg' %}"
+            class="img-fluid"
+            alt="Osoby siedzące w siadzie skrzyżnym w sali ćwiczeń"
+          />
+        </a>
+      </div>
+    </div>
+    <div class="row mb-4">
+      <div class="col-md-4 py-3">
+        <a
+          href="{% static 'core/img/studio4.jpg' %}"
+          data-toggle="lightbox"
+          data-gallery="img-gallery"
+          data-height="750"
+          data-width="1000"
+        >
+          <img
+            src="{% static 'core/img/studio4_tn.jpg' %}"
+            class="img-fluid"
+            alt="Osoba w pozycji pies z głową do góry w sali ćwiczeń"
+          />
+        </a>
+      </div>
+      <div class="col-md-4 py-3">
+        <a
+          href="{% static 'core/img/studio5.jpg' %}"
+          data-toggle="lightbox"
+          data-gallery="img-gallery"
+          data-height="750"
+          data-width="1000"
+        >
+          <img
+            src="{% static 'core/img/studio5_tn.jpg' %}"
+            class="img-fluid"
+            alt="Kanapa, miejsce wypoczynku na tarasie"
+          />
+        </a>
+      </div>
+      <div class="col-md-4 py-3">
+        <a
+          href="{% static 'core/img/studio6.jpg' %}"
+          data-toggle="lightbox"
+          data-gallery="img-gallery"
+          data-height="750"
+          data-width="1000"
+        >
+          <img
+            src="{% static 'core/img/studio6_tn.jpg' %}"
+            class="img-fluid"
+            alt="Łapacz snów wiszący na tarasie"
+          />
+        </a>
+      </div>
+    </div>
+  </div>
+</section>
 
 {% endblock %}

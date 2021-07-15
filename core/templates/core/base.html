@@ -1,194 +1,260 @@
 <!DOCTYPE html>
 <!DOCTYPE html>
-<html lang="en">
+<html lang="pl">
+  <head>
+    <meta charset="UTF-8" />
+    <meta charset="utf-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1, shrink-to-fit=no"
+    />
+    <meta name="description" content="" />
+    <meta name="author" content="" />
 
-<head>
-	<meta charset="UTF-8">
-	<meta charset="utf-8">
-	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-	<meta name="description" content="">
-	<meta name="author" content="">
+    <title>{% block title %}{% endblock%} Yoga House - Studio Jogi</title>
 
-	<title>{% block title %}{% endblock%} Yoga House - Studio Jogi</title>
+    {% load static %}
 
-	{% load static %}
-	
-	<!-- Bootstrap and styles -->
-	<link href="{% static 'core/vendor/bootstrap/css/bootstrap.min.css' %}" rel="stylesheet">
-	<link href="{% static 'core/css/style.css' %}" rel="stylesheet">
+    <!-- Bootstrap and styles -->
+    <link
+      href="{% static 'core/vendor/bootstrap/css/bootstrap.min.css' %}"
+      rel="stylesheet"
+    />
+    <link href="{% static 'core/css/style.css' %}" rel="stylesheet" />
 
-	<!-- Fonts -->
-	<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.3.1/css/all.css" integrity="sha384-mzrmE5qonljUremFsqc01SB46JvROS7bZs3IO2EmfFsd15uHvIt+Y8vEf7N7fWAU" crossorigin="anonymous">
-	<link href="https://fonts.googleapis.com/css?family=Pacifico|Ubuntu|KoHo|Hebo|Lato" rel="stylesheet"> 
+    <!-- Fonts -->
+    <link
+      rel="stylesheet"
+      href="https://use.fontawesome.com/releases/v5.3.1/css/all.css"
+      integrity="sha384-mzrmE5qonljUremFsqc01SB46JvROS7bZs3IO2EmfFsd15uHvIt+Y8vEf7N7fWAU"
+      crossorigin="anonymous"
+    />
+    <link
+      href="https://fonts.googleapis.com/css?family=Pacifico|Ubuntu|KoHo|Hebo|Lato"
+      rel="stylesheet"
+    />
 
-	<link rel="shortcut icon" href="{% static 'core/img/favicon.ico' %}"/>
+    <link rel="shortcut icon" href="{% static 'core/img/favicon.ico' %}" />
+  </head>
 
-</head>
+  <body>
+    <div id="page-container">
+      <div id="content-wrap">
+        <div class="container">
+          <div class="row justify-content-center">
+            <div class="d-none d-lg-block py-4 mb-0" id="siteHeading">
+              <a href="{% url 'home' %}" class="tstyle-logo logo-lg">Yoga House</a>
+            </div>
+          </div>
+        </div>
 
-<body>
-	<div id="page-container">
-		<div id="content-wrap">	
-			<div class="container">
-				<div class="row justify-content-center">
-					<div class="d-none d-lg-block py-4 mb-0" id="siteHeading">
-						<h1 class=" tstyle-brand">Yoga House </h1>				
-					</div>
-				</div>
-			</div>
-			
-			<!-- Main Navigation -->
-			<nav class="navbar navbar-expand-lg navbar-dark py-3" id="mainNav">
-				<div class="container">
+        <!-- Main Navigation -->
+        <nav class="navbar navbar-expand-lg navbar-dark py-3" id="mainNav">
+          <div class="container ">
+            <a
+              href="{% url 'home' %}"
+              class="navbar-logo text-expanded d-lg-none tstyle-logo"
+              >Yoga House</a
+            >
 
-					<a href="{% url 'home' %}" class="navbar-brand text-expanded d-lg-none tstyle-brand">Yoga House</a>	
+            <button
+              class="navbar-toggler"
+              data-toggle="collapse"
+              data-target="#navbarCollapse"
+              aria-label="przycisk menu"
+            >
+              <span class="navbar-toggler-icon icon-color" aria-hidden></span>
+            </button>
 
-					<button class="navbar-toggler" data-toggle="collapse" data-target="#navbarCollapse">
-						<span class="navbar-toggler-icon icon-color"></span>
-					</button>
-					<div class="collapse navbar-collapse" id="navbarCollapse">
-						<ul class="navbar-nav mx-auto">
+            <div class="collapse navbar-collapse mt-4 mt-lg-0" id="navbarCollapse">
+              <ul class="navbar-nav mx-auto">
 							<li class="nav-item px-lg-3 {% if request.path == '/' %} active {% endif %}">
-								<a href="{% url 'home' %}" class="nav-link text-expanded">Strona Główna</a>                      
+								<a href="{% url 'home' %}" class="nav-link text-expanded">
+                  <span class="nav-span">Strona Główna</span></a>
 							</li>
-							<li class="nav-item px-lg-3 {% if request.path == '/o-nas/' %} active {% endif %}">
-								<a href="{% url 'about:about' %}" class="nav-link text-expanded">O Nas</a>						
-							</li>    					    
-							<li class="nav-item px-lg-3 dropdown {% if '/zajecia/' in request.path %} active {% endif %}">						
-								<a href="{% url 'classes:classes' %}" class="nav-link text-expanded dropdown-toggle" data-toggle="dropdown">Zajęcia   
-								<span class="caret"></span></a>
-								<ul class="dropdown-menu">							
-									<li><a class="dropdown-item px-3" href="{% url 'classes:classes' %}">Rodzaje Zajęć</a></li>
-									<li><a class="dropdown-item px-3" href="{% url 'classes:prices' %}">Ceny</a></li>
-									<li><a class="dropdown-item px-3" href="{% url 'classes:conditions' %}">Regulamin</a></li>
-								</ul>                    
-							</li>
-							<li class="nav-item px-lg-3 {% if request.path == '/grafik/' %} active {% endif %}">
-								<a href="{% url 'schedule:week_view' %}" class="nav-link text-expanded "><i class="far fa-calendar-alt"></i> Grafik</a>						
-							</li>   
-							<li class="nav-item px-lg-3 {% if request.path == '/wydarzenia/' %} active {% endif %}">
-								<a href="{% url 'events:events' %}" class="nav-link text-expanded">Wydarzenia</a>                       
-							</li>
-							<li class="nav-item px-lg-3 {% if request.path == '/kontakt/' %} active {% endif %}">
-								<a href="{% url 'contact:contact' %}" class="nav-link  text-expanded">Kontakt</a>                       
-							</li>
-							<li class="nav-item px-lg-3 {% if request.path == '/blog/' %} active {% endif %}">
-								<a href="{% url 'blog:posts' %}" class="nav-link text-expanded">Blog</a>                       
-							</li>			
-						</ul>
-					</div>			
-				</div>    
-			</nav>
+                <!-- prettier-ignore-attribute -->
+                <li
+                  class="nav-item px-lg-3 dropdown {% if '/zajecia/' in request.path %} active {% endif %}"
+                >
+                  <a
+                    href=""
+                    class="nav-link text-expanded dropdown-toggle"
+                    data-toggle="dropdown"
+                    role="button"
+                    ><span class="nav-span">Zajęcia</span> <span class="caret"></span
+                  ></a>
+                  <ul class="dropdown-menu">
+                    <li>
+                      <a class="dropdown-item px-3" href="{% url 'classes:classes' %}"
+                        >Rodzaje Zajęć</span></a
+                      >
+                    </li>
+                    <li>
+                      <a class="dropdown-item px-3" href="{% url 'classes:prices' %}"
+                        >Ceny</a
+                      >
+                    </li>
+                    <li>
+                      <a
+                        class="dropdown-item px-3"
+                        href="{% url 'classes:conditions' %}"
+                        >Regulamin</a
+                      >
+                    </li>
+                  </ul>
+                </li>
+                <!-- prettier-ignore-attribute -->
+                <li
+                  class="nav-item px-lg-3 {% if request.path == '/grafik/' %} active {% endif %}"
+                >
+                  <a
+                    href="{% url 'schedule:week_view' %}"
+                    class="nav-link text-expanded"
+                    ><span class="nav-span"><i class="far fa-calendar-alt"></i> Grafik</span></a
+                  >
+                </li>
+                <!-- prettier-ignore-attribute -->
+                <li
+                  class="nav-item px-lg-3 {% if request.path == '/wydarzenia/' %} active {% endif %}"
+                >
+                  <a href="{% url 'events:events' %}" class="nav-link text-expanded"
+                    ><span class="nav-span">Wydarzenia</span></a
+                  >
+                </li>
+                <!-- prettier-ignore-attribute -->
+                <li
+                  class="nav-item px-lg-3 {% if request.path == '/kontakt/' %} active {% endif %}"
+                >
+                  <a href="{% url 'contact:contact' %}" class="nav-link text-expanded"
+                    ><span class="nav-span">Kontakt</span></a
+                  >
+                </li>
+                <!-- prettier-ignore-attribute -->
+                <li
+                  class="nav-item px-lg-3 {% if request.path == '/blog/' %} active {% endif %}"
+                >
+                  <a href="{% url 'blog:posts' %}" class="nav-link text-expanded"
+                    ><span class="nav-span">Blog</span></a
+                  >
+                </li>
+              </ul>
+            </div>
+          </div>
+        </nav>
 
-			<!-- User Login Navbar -->
-			<nav class="navbar navbar-light navbar-expand py-1 justyfy-content-right" id="userNav">
-				<div class="container">		
-					<ul class="navbar-nav ml-auto ">
-						<li class="nav-item px-lg-3 ">
-							<span class="nav-link  text-expanded">STREFA KURSANTA |</span>
-						</li> 				
-						<li class="nav-item ">
-							{% if not request.user.is_authenticated %}
-								<a href="{% url 'login' %}" class="nav-link  text-expanded"><i class="fas fa-user"></i>&nbsp;&nbsp;Zaloguj</a>
-							{% else %}
-								<a href="{% url 'logout' %}" class="nav-link  text-expanded"><i class="fas fa-power-off"></i>&nbsp;&nbsp;Wyloguj</a>
-							{% endif %}
-						</li>   
-					</ul>	
-				</div>    
-			</nav>
+        <!-- User Login Navbar -->
+        <nav
+          class="navbar navbar-light navbar-expand py-1 justyfy-content-right"
+          id="userNav"
+        >
+          <div class="container">
+            <ul class="navbar-nav ml-auto">
+              <li class="nav-item px-lg-3">
+                <span class="nav-link text-expanded">STREFA KURSANTA |</span>
+              </li>
+              <li class="nav-item">
+                {% if not request.user.is_authenticated %}
+                <a href="{% url 'login' %}" class="nav-link text-expanded"
+                  ><i class="fas fa-user"></i>&nbsp;&nbsp;Zaloguj</a
+                >
+                {% else %}
+                <a href="{% url 'logout' %}" class="nav-link text-expanded"
+                  ><i class="fas fa-power-off"></i>&nbsp;&nbsp;Wyloguj</a
+                >
+                {% endif %}
+              </li>
+            </ul>
+          </div>
+        </nav>
 
-			<!-- Content -->
-			{% block content %}
-			{% endblock %}
+        <!-- Content -->
+        {% block content %} {% endblock %}
 
-			<!-- Footer -->
-			<footer id="footer" class="footer text-center py-5">
-				<div class="container">
-					<p id="social-link">
-						<a href="{{ LINK_FACEBOOK }}" >
-							<span class="fa-stack fa-1x">
-								<i class="fa fa-circle fa-stack-2x"></i>
-								<i class="fab fa-facebook-f fa-stack-1x fa-inverse"></i>
-							</span>
-						</a>
-						<a href="{{ LINK_INSTAGRAM }}" class=" mx-2">
-							<span class="fa-stack fa-1x">
-								<i class="fa fa-circle fa-stack-2x"></i>
-								<i class="fab fa-instagram fa-stack-1x fa-inverse"></i>
-							</span>
-						</a>
-						<a href="{{ LINK_YOUTUBE }}" class="">
-							<span class="fa-stack fa-1x">
-								<i class="fa fa-circle fa-stack-2x"></i>
-								<i class="fab fa-youtube fa-stack-1x fa-inverse"></i>
-							</span>
-						</a>
-					</p>
-					<p class="m-0 mbt1">&copy; Anna Piwońska 2018</p>
-					<a href="" class="link" data-toggle="modal" data-target="#creditsModal">Credits</a>
-				</div>
-			</footer>
-		</div>
-	</div>
+        <!-- Footer -->
+        <footer id="footer" class="footer text-center d-flex flex-column justify-content-center">
+          <div class="container">
+            <div id="social-link" class="mb-2">
+              <a href="{{ LINK_GITHUB }}" target="_blank" aria-label="kod projektu na githubie">
+                <i class="fab fa-github fa-2x" aria-hidden ></i>
+              </a>
+            </div>
+            <a href="" class="link" data-toggle="modal" data-target="#creditsModal"
+              >Credits</a
+            >
+          </div>
+        </footer>
+      </div>
+    </div>
 
-	<!-- Credits Modal -->
-	<div class="modal" id="creditsModal">
-		<div class="modal-dialog">
-			<div class="modal-content">
-				<div class="modal-header">
-					<h5 class="modal-title">Credits</h5>
-					<button class="close" data-dismiss="modal">
-						<span>&times;</span>
-					</button>
-				</div>
-				<div class="modal-body">
-					<div class="px-3">
-						<p>Na stronie wykorzystano materiały graficzne z serwisów <a href="https://fontawesome.com/">fontawsome.com</a> i <a href="https://unsplash.com/">unsplash.com</a>.	
-						</p>
-						<p><b>All icons come from: </b> <a href="https://fontawesome.com/">fontawsome.com</a></p>
-						<p><b>All photos come from: </b> <a href="https://unsplash.com/">unsplash.com</a></p>	
-					</div>
-				</div>	
-				<div class="modal-footer">
-					<button class="btn btn-info" data-dismiss="modal">Close</button>
-				</div>			
-			</div>
-		</div>
-	</div>
+    <!-- Credits Modal -->
+    <div class="modal" id="creditsModal">
+      <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title">Credits</h5>
+            <button class="close" data-dismiss="modal">
+              <span>&times;</span>
+            </button>
+          </div>
+          <div class="modal-body">
+            <div class="px-3">
+              <p>
+                Na stronie wykorzystano materiały graficzne z serwisów
+                <a href="https://fontawesome.com/">fontawsome.com</a>
+                i
+                <a href="https://unsplash.com/">unsplash.com</a>.
+              </p>
+              <p>
+                <b>All icons come from: </b>
+                <a href="https://fontawesome.com/">fontawsome.com</a>
+              </p>
+              <p>
+                <b>All photos come from: </b>
+                <a href="https://unsplash.com/">unsplash.com</a>
+              </p>
+            </div>
+          </div>
+          <div class="modal-footer">
+            <button class="btn btn-info" data-dismiss="modal">Close</button>
+          </div>
+        </div>
+      </div>
+    </div>
 
-	<!-- Bootstrap -->
-	<script src="{% static 'core/vendor/jquery/jquery.min.js' %}"></script>
-	<script src="{% static 'core/vendor/bootstrap/js/bootstrap.bundle.min.js' %}"></script>	
+    <!-- Bootstrap -->
+    <script src="{% static 'core/vendor/jquery/jquery.min.js' %}"></script>
+    <script src="{% static 'core/vendor/bootstrap/js/bootstrap.bundle.min.js' %}"></script>
 
-	<!-- Lightbox -->
-	<script src="https://cdnjs.cloudflare.com/ajax/libs/ekko-lightbox/5.3.0/ekko-lightbox.min.js"></script>
-	<script>
-		//Lightbox Init
-		$(document).on('click', '[data-toggle="lightbox"]', function(event) {
-			event.preventDefault();
-			$(this).ekkoLightbox();
-		});
-	</script>
+    <!-- Lightbox -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/ekko-lightbox/5.3.0/ekko-lightbox.min.js"></script>
+    <script>
+      //Lightbox Init
+      $(document).on('click', '[data-toggle="lightbox"]', function (event) {
+        event.preventDefault();
+        $(this).ekkoLightbox();
+      });
+    </script>
 
-	<!-- Scroll to the top -->
-	<a href="javascript:" id="return-to-top"><i class="fas fa-chevron-up"></i></a>
-	<script>
-		$(window).scroll(function() {
-		    if ($(this).scrollTop() >= 50) {        // If page is scrolled more than 50px
-		        $('#return-to-top').fadeIn(200);    // Fade in the arrow
-		    } else {
-		        $('#return-to-top').fadeOut(200);   // Else fade out the arrow
-		    }
-		});
-		$('#return-to-top').click(function() {      // When arrow is clicked
-			$('body,html').animate({
-		        scrollTop : 0                       // Scroll to top of body
-		    }, 500);
-		});
-	</script>
+    <!-- Scroll to the top -->
+    <a href="javascript:" id="return-to-top" aria-label="przewiń do góry"><i class="fas fa-chevron-up"></i></a>
+    <script>
+      $(window).scroll(function () {
+        if ($(this).scrollTop() >= 50) {
+          $('#return-to-top').fadeIn(200);
+        } else {
+          $('#return-to-top').fadeOut(200);
+        }
+      });
+      $('#return-to-top').click(function () {
+        $('body,html').animate(
+          {
+            scrollTop: 0,
+          },
+          500
+        );
+      });
+    </script>
 
-	{% block js %} {% endblock %}
-	
-</body>
-
+    {% block js %} {% endblock %}
+  </body>
 </html>

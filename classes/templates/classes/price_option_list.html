@@ -5,65 +5,54 @@
 
 {% block content %}
 
-	<!-- Prices -->
-<section id="prices-section" class="py-5">
-	<div class="container text-center ">
-		
-		<!-- Pricing Category -->
-		{% for category in categories %}
-		<div class="mb-5 prices-details">	
-			
-			<h2 class="py-2">{{ category.name }}</h2>
-			<p class=" mb-4">Czas trwania zajęć: {{ category.class_duration }} minut.</p>			
-			
-				
-			<div class="row px-3">
+<!-- Prices -->
+<section id="prices-section" class="mt-5 mb-4">
+  <div class="container-fluid text-center">
+	<h1 class="mb-5 header-underline">Cennik</h1>
+    <!-- Pricing Category -->
+    {% for category in categories %}
+    <div class="mb-5 prices-details">
+      <h2 class="py-3">{{ category.name }}</h2>
+      <p class="mb-4">Czas trwania zajęć: {{ category.class_duration }} minut.</p>
 
-				{% if category.items_in_row == '2' %} 
-				<div class=" mx-auto col-md-8 ">
-					<div class="row"> 
-				{% endif %}
-				
-						<!-- Pricing Options -->
-						{% for price_option in category.priceoption_set.all %}
-						<div class="
-						{% if category.items_in_row == '3' %}
-						col-md-4 px-0 d-flex align-items-stretch
-						{% elif category.items_in_row == '2' %}
-						col-md-6
-						{% endif %}
-						">
-							<div class="card mb-3 mx-3 ">
-								<div class="card-header">
-									<h4>{{ price_option.name }}</h4>
-								</div>
-								<div class="card-body">
-									<h2 class="card-title">
-										{{ price_option.price }}
-										<small class="text-muted">zł/h</small>
-									</h2>
-									<ul class="list-group mb-3">
-										{% for price_detail in price_option.details.all %}
-										<li class="list-group-item">{{ price_detail.description }}</li>
-										{% endfor %}
-									</ul>
-								</div>
-							</div>
-						</div>
-						{% endfor %}
+      <div class="row mx-3">
+        <!-- Pricing Options -->
+        {% for price_option in category.priceoption_set.all %}
 
-				{% if category.items_in_row == '2' %}  	
-					</div>	
-				</div>
-				{% endif %}
+          <!-- prettier-ignore-attribute -->
+          <div
+            class="
+          {% if category.items_in_row == '3' %}
+          col-md-4 px-0 d-flex align-items-stretch
+          {% elif category.items_in_row == '2' %}
+          col-md-6 px-0 d-flex align-items-stretch
+          {% endif %}
+          "
+          >
+            <div class="card mb-3 mx-2">
+              <div class="card-header">
+                <h3 class="mb-0">{{ price_option.name }}</h3>
+              </div>
+              <div class="card-body">
+                <span class="card-title class-price mb-3">
+                  {{ price_option.price }}
+                  <small class="text-muted">zł/h</small>
+                </span>
+                <ul class="list-group my-3">
+                  {% for price_detail in price_option.details.all %}
+                  <li class="list-group-item">{{ price_detail.description }}</li>
+                  {% endfor %}
+                </ul>
+              </div>
+            </div>
+          </div>
+        {% endfor %}
+      </div>
+    </div>
+    {% endfor %}
 
-			</div>
-
-		</div>
-		{% endfor %}
-
-		<p>W celu zapisania się na zajęcia, prosimy o kontakt mailowy lub telefoniczny.</p>
-	</div>	
+    <p>W celu zapisania się na zajęcia, prosimy o kontakt mailowy lub telefoniczny.</p>
+  </div>
 </section>
 
 {% endblock %}

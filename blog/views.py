@@ -6,19 +6,6 @@ from .models import Category, Post
 
 
 def post_list(request):
-    post_list = Post.objects.all()
-    published_posts = [post for post in post_list if post.was_published()]
-
-    paginator = Paginator(published_posts, 3)
-    page = request.GET.get('page')
-    posts = paginator.get_page(page)
-
-    categories = Category.objects.all()
-
-    return render(request, "blog/post_list.html", {'posts': posts, 'categories': categories})
-
-
-def search(request):
     query = request.GET.get('q')
     category = request.GET.get('cat')
     order = request.GET.get('order')
@@ -45,11 +32,13 @@ def search(request):
     posts = paginator.get_page(page)
 
     categories = Category.objects.all()
+    
+    ctx = {'posts': posts, 'categories': categories}
+    
     return render(
         request,
         "blog/post_list.html",
-        {'posts': posts, 'categories': categories,
-            'query': query, 'category': category, 'order': order}
+        ctx
     )
 
 

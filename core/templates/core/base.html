@@ -20,7 +20,7 @@
       href="{% static 'core/vendor/bootstrap/css/bootstrap.min.css' %}"
       rel="stylesheet"
     />
-    <link href="{% static 'core/css/style.css' %}" rel="stylesheet" />
+    <link href="{% static 'core/css/style_base.css' %}" rel="stylesheet" />
 
     <!-- Fonts -->
     <link
@@ -33,8 +33,19 @@
       href="https://fonts.googleapis.com/css?family=Pacifico|Ubuntu|KoHo|Hebo|Lato"
       rel="stylesheet"
     />
-
     <link rel="shortcut icon" href="{% static 'core/img/favicon.ico' %}" />
+
+    {% block style %}{% endblock%}
+
+    <!-- Bootstrap -->
+    <script src="{% static 'core/vendor/jquery/jquery.min.js' %}" defer></script>
+    <script src="{% static 'core/vendor/bootstrap/js/bootstrap.bundle.min.js' %}" defer></script>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/ekko-lightbox/5.3.0/ekko-lightbox.min.js" defer></script>
+    <script src="{% static 'core/js/main_base.js' %}" defer></script>
+
+    {% block script %}{% endblock%}
+
   </head>
 
   <body>
@@ -68,10 +79,19 @@
 
             <div class="collapse navbar-collapse mt-4 mt-lg-0" id="navbarCollapse">
               <ul class="navbar-nav mx-auto">
-							<li class="nav-item px-lg-3 {% if request.path == '/' %} active {% endif %}">
-								<a href="{% url 'home' %}" class="nav-link text-expanded">
-                  <span class="nav-span">Strona Główna</span></a>
-							</li>
+                <!-- prettier-ignore-attribute -->
+                <li class="nav-item px-lg-3 {% if request.path == '/' %} active {% endif %}">
+                  <a href="{% url 'home' %}" class="nav-link text-expanded">
+                    <span class="nav-span">Strona Główna</span></a>
+                </li>
+                <!-- prettier-ignore-attribute -->
+                <li
+                  class="nav-item px-lg-3 {% if request.path == '/o-nas/' %} active {% endif %}"
+                >
+                  <a href="{% url 'about:about' %}" class="nav-link text-expanded"
+                    ><span class="nav-span">O Nas</span></a
+                  >
+                </li>
                 <!-- prettier-ignore-attribute -->
                 <li
                   class="nav-item px-lg-3 dropdown {% if '/zajecia/' in request.path %} active {% endif %}"
@@ -187,12 +207,12 @@
     </div>
 
     <!-- Credits Modal -->
-    <div class="modal" id="creditsModal">
-      <div class="modal-dialog modal-dialog-centered">
+    <div class="modal" id="creditsModal"  tabindex="-1" role="dialog">
+      <div class="modal-dialog modal-dialog-centered" role="document">
         <div class="modal-content">
           <div class="modal-header">
-            <h5 class="modal-title">Credits</h5>
-            <button class="close" data-dismiss="modal">
+            <h1 class="modal-title">Credits</h1>
+            <button class="close" data-dismiss="modal" aria-label="zamknij">
               <span>&times;</span>
             </button>
           </div>
@@ -205,56 +225,25 @@
                 <a href="https://unsplash.com/">unsplash.com</a>.
               </p>
               <p>
-                <b>All icons come from: </b>
+                <b>Wykorzystano ikony z: </b>
                 <a href="https://fontawesome.com/">fontawsome.com</a>
               </p>
               <p>
-                <b>All photos come from: </b>
+                <b>Wykorzystano fotografie z: </b>
                 <a href="https://unsplash.com/">unsplash.com</a>
               </p>
             </div>
           </div>
           <div class="modal-footer">
-            <button class="btn btn-info" data-dismiss="modal">Close</button>
+            <button class="btn btn-info" data-dismiss="modal">Zamknij</button>
           </div>
         </div>
       </div>
     </div>
 
-    <!-- Bootstrap -->
-    <script src="{% static 'core/vendor/jquery/jquery.min.js' %}"></script>
-    <script src="{% static 'core/vendor/bootstrap/js/bootstrap.bundle.min.js' %}"></script>
+    <button id="return-to-top" aria-hide>
+      <i class="fas fa-chevron-up"></i>
+    </button>
 
-    <!-- Lightbox -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/ekko-lightbox/5.3.0/ekko-lightbox.min.js"></script>
-    <script>
-      //Lightbox Init
-      $(document).on('click', '[data-toggle="lightbox"]', function (event) {
-        event.preventDefault();
-        $(this).ekkoLightbox();
-      });
-    </script>
-
-    <!-- Scroll to the top -->
-    <a href="javascript:" id="return-to-top" aria-label="przewiń do góry"><i class="fas fa-chevron-up"></i></a>
-    <script>
-      $(window).scroll(function () {
-        if ($(this).scrollTop() >= 50) {
-          $('#return-to-top').fadeIn(200);
-        } else {
-          $('#return-to-top').fadeOut(200);
-        }
-      });
-      $('#return-to-top').click(function () {
-        $('body,html').animate(
-          {
-            scrollTop: 0,
-          },
-          500
-        );
-      });
-    </script>
-
-    {% block js %} {% endblock %}
-  </body>
+   </body>
 </html>

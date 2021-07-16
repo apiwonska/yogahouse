@@ -138,8 +138,12 @@ LOGIN_REDIRECT_URL = 'home'
 LOGOUT_REDIRECT_URL = 'home'
 
 STATICFILES_DIRS = (
+    os.path.join(BASE_DIR, 'about'),
+    os.path.join(BASE_DIR, 'classes'),
     os.path.join(BASE_DIR, 'events'),
     os.path.join(BASE_DIR, 'blog'),
+    os.path.join(BASE_DIR, 'schedule'),
+    os.path.join(BASE_DIR, 'contact'),
 )
 
 

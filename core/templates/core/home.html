@@ -1,4 +1,17 @@
-{% extends 'core/base.html' %} {% load static %} {% block content %}
+{% extends 'core/base.html' %} 
+
+{% load static %} 
+
+{% block style %} 
+<link href="{% static 'core/css/style_home.css' %}" rel="stylesheet" />
+{% endblock %}
+
+{% block script %}
+
+{% endblock%}
+
+
+{% block content %}
 <!-- Home Section -->
 <section id="home-section" class="d-sm-block">
   <div class="dark-overlay">
@@ -144,14 +157,4 @@
   </div>
 </section>
 
-{% endblock %} {% block js %}
-
-<script>
-  //Configure Slider
-  $('.carousel').carousel({
-    interval: 4000,
-    pause: 'hover',
-  });
-</script>
-
-{% endblock %}
+{% endblock %} 

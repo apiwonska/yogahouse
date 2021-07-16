@@ -1,0 +1,266 @@
+:root {
+  --blue-color: rgb(108, 197, 209);
+  --marine-color: rgb(87, 188, 144);
+  --forest-color: rgb(1, 82, 73);
+  --forest-color-dark: #012D29;
+  --grey-color: rgb(165, 165, 175);
+  --black-color: rgb(40, 40, 40);
+}
+
+html {
+  min-width: 350px;
+}
+
+body {
+  padding: 0;
+  margin: 0;
+  color: var(--black-color);
+}
+
+a {
+  text-decoration: none;
+}
+
+button {
+  border:none;
+}
+
+button:focus-visible, 
+a:focus-visible, 
+div:focus-visible  {
+  outline: 3px rgb(63, 245, 56) solid !important;
+  outline-offset: 5px !important;
+}
+
+*:focus {
+  outline: none !important;
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+.screen-reader-only {
+  position: absolute; 
+  left: -1000px;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  margin: -1px;
+}
+
+#page-container {
+  position: relative;
+  min-height: 100vh;
+}
+
+#content-wrap {
+  padding-bottom: 130px;
+}
+
+#footer {
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+  height: 130px;
+}
+
+.tstyle-logo {
+  font-family: 'Pacifico';
+  color: var(--forest-color);
+}
+
+.tstyle-logo:visited {
+  color: var(--forest-color);
+  text-decoration: none;
+}
+
+.tstyle-logo:hover {
+  color: var(--forest-color-dark);
+  text-decoration: none;
+}
+
+.logo-lg {
+  font-size: 3rem;
+}
+
+.btn-info {
+  background: var(--blue-color);
+  border-color: var(--blue-color);
+  color: rgb(1, 51, 80);
+}
+
+.btn-secondary {
+  background: var(--grey-color);
+  border-color: var(--grey-color);
+}
+
+.btn-success {
+  background: var(--marine-color);
+  border-color: var(--marine-color);
+}
+
+#siteHeading h1 {
+  font-size: 3rem;
+  color: var(--forest-color);
+}
+
+#loginIcons a {
+  color: var(--marine-color);
+}
+
+#mainNav {
+  background-color: var(--marine-color);
+}
+
+#mainNav .navbar-logo {
+  font-size: 2rem;
+}
+
+#mainNav .nav-item .nav-link {
+  text-transform: uppercase;
+  font-family: 'Ubuntu', sans-serif;
+  font-weight: bold;
+  font-size: 0.9rem;
+  color: white;
+}
+
+#mainNav .nav-item .nav-link {
+  color: var(--forest-color-dark);
+  position: relative;
+}
+
+#mainNav .nav-span {
+  position:relative;
+}
+
+#mainNav .nav-item .nav-span::before {
+  position:absolute;
+  content:"";
+  background-color: rgb(1, 82, 73,0.6);
+  bottom: -8px;
+  left: 50%;
+  transform:translateX(-50%);
+  height: 3px;
+  width: 0;
+  transition: 0.3s;
+} 
+
+#mainNav .nav-item:hover .nav-span::before,
+#mainNav .nav-item:focus-visible .nav-span::before  {
+  width: 100%;
+} 
+
+#mainNav .nav-item.active .nav-span::before {
+  width: 100%;
+} 
+
+#mainNav .dropdown-menu {
+  background-color: var(--marine-color);
+  border-color: transparent;
+}
+
+#mainNav .dropdown-menu :hover, 
+#mainNav .dropdown-menu :focus-visible {
+  background-color: transparent;
+  color: var(--forest-color);
+}
+
+#mainNav .dropdown-menu li a {
+  text-transform: uppercase;
+  font-family: 'Ubuntu', sans-serif;
+  font-size: 0.8rem;
+  color: var(--forest-color-dark);
+}
+
+#mainNav .dropdown-menu li a:hover,
+#mainNav .dropdown-menu li a:focus-visible {
+  font-weight: 600;
+  font-size: 0.83rem;
+}
+
+#mainNav .navbar-toggler {
+  color: #012D29;
+}
+
+#userNav {
+  background: lightgrey;
+}
+
+#userNav .nav-item .nav-link {
+  font-family: 'Ubuntu', sans-serif;
+  font-weight: bold;
+  font-size: 0.9rem;
+  color: #3B3B3B;
+}
+
+#userNav .nav-item a:hover {
+  color: black;
+}
+
+.style-light {
+  font-family: KoHo;
+  color: #575757;
+}
+
+.footer a {
+  color: var(--forest-color);
+  font-style: italic;
+}
+
+#creditsModal a {
+  color: #595959;
+  font-style: italic;
+}
+
+#creditsModal h1 {
+  font-size: 1.25rem;
+}
+
+/* Scroll to the top of the page*/
+#return-to-top {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  padding: 0;
+  background: rgba(176, 176, 176, 0.7);
+  width: 50px;
+  height: 50px;
+  display: block;
+  text-decoration: none;
+  -webkit-border-radius: 35px;
+  -moz-border-radius: 35px;
+  border-radius: 35px;
+  display: none;
+  -webkit-transition: all 0.3s linear;
+  -moz-transition: all 0.3s ease;
+  -ms-transition: all 0.3s ease;
+  -o-transition: all 0.3s ease;
+  transition: all 0.3s ease;
+}
+#return-to-top i {
+  color: #fff;
+  margin: 0;
+  position: relative;
+  left: 0;
+  top: 0;
+  font-size: 19px;
+  -webkit-transition: all 0.3s ease;
+  -moz-transition: all 0.3s ease;
+  -ms-transition: all 0.3s ease;
+  -o-transition: all 0.3s ease;
+  transition: all 0.3s ease;
+}
+#return-to-top:hover {
+  background: rgba(176, 176, 176, 0.9);
+}
+#return-to-top:hover i {
+  top: -5px;
+}
+
+@media screen and (max-width: 768px) {
+  .mobile-mb-3 {
+    margin-bottom: 16px;
+  }
+}

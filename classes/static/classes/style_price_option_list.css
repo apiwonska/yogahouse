@@ -1,0 +1,36 @@
+
+#prices-section .container-fluid {
+  max-width: 960px;
+}
+
+#prices-section .prices-details > h2 {
+  background: #757584;
+  color: white;
+  font-size: 1.8rem;
+}
+
+#prices-section h3 {
+  font-size: 1.5rem;
+}
+
+#prices-section .prices-details {
+  background: rgba(0, 0, 0, 0.1);
+}
+
+#prices-section .card-header {
+  background: var(--blue-color);
+  color:rgb(1, 51, 80);
+}
+
+#prices-section .card {
+  width: 100%;
+}
+
+#prices-section .class-price {
+  font-size: 1.8rem;
+}
+
+#prices-section .list-group {
+  font-size: 0.9rem;
+  padding: 0;
+}

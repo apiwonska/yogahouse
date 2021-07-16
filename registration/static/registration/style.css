@@ -1,0 +1,11 @@
+
+.registration-forms ul,
+.helptext {
+  font-size: 0.9rem;
+  color: grey;
+}
+
+.registration-forms .errorlist {
+  color: red;
+  margin-bottom: 4px;
+}

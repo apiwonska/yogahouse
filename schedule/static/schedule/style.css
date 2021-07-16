@@ -1,0 +1,29 @@
+
+#schedule-md thead th {
+  width: 12.5%;
+  background: var(--grey-color);
+  color: white;
+}
+
+#schedule-md table {
+  font-size: 0.9rem;
+}
+
+#schedule-sm .card-header {
+  background: var(--grey-color);
+  color: white;
+  cursor: pointer;
+}
+
+#schedule-sm .card-header:hover {
+  background: rgb(133, 133, 147);
+}
+
+.schedule-modal p {
+  font-weight: lighter;
+}
+
+.schedule-modal a {
+  color: black;
+  font-weight: bolder;
+}

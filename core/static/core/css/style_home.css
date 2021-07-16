@@ -1,0 +1,80 @@
+.dark-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.6);
+}
+
+.style-caption {
+  font-family: 'Lato', sans-serif;
+}
+
+#home-section {
+  position: relative;
+  min-height: 350px;
+  background: url('../img/homeSection2.jpg');
+  background-repeat: no-repeat;
+  background-size: cover;
+  margin: 0px auto;
+  color: white;
+}
+
+#home-section .blockquote-footer {
+  color: #fff;
+  font-size: 90%;
+  font-style: italic;
+}
+
+#class-link {
+  position: relative;
+  min-height: 250px;
+  background: url('../img/bg-classes.jpg');
+  background-size: cover;
+  background-attachment: fixed;
+  background-repeat: no-repeat;
+  text-align: center;
+  color: white;
+}
+
+.about-image {
+  max-width: 250px;
+  width: 100%;
+}
+
+.carousel-caption {
+  bottom: 0;
+  top: 50%;
+  transform: translateY(-50%);
+  overflow: hidden;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  color: var(--forest-color-dark)
+}
+
+.carousel-item {
+  min-height: 250px;
+}
+
+.carousel-item:after {
+  content: '';
+  display: block;
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+}
+
+.carousel-background {
+  background: var(--marine-color);
+}
+
+#showcase .blockquote-footer {
+  color: var(--forest-color-dark);
+  font-size: 90%;
+  font-style: italic;
+}

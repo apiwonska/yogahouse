@@ -1,0 +1,9 @@
+#map {
+  height: 400px;
+  width: 100%;
+}
+
+#contact-form .card-header {
+  background: var(--blue-color);
+  color:rgb(1, 51, 80);
+}

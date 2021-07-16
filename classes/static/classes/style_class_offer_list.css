@@ -1,0 +1,31 @@
+
+#yoga-general img {
+  max-width: 300px;
+  width:100%;
+}
+
+#classes-description .card-header {
+  background: var(--blue-color);
+  cursor: pointer;
+}
+
+#classes-description .card-header h3 .btn-link {
+  font-size: 1.5rem;
+  color: rgb(1, 51, 80);  
+  text-decoration: none; 
+}
+
+#classes-description .card-header h3 .btn-link:hover,
+#classes-description .card-header h3 .btn-link:visited {
+  text-decoration: none; 
+}
+
+#classes-description .card-header:hover {
+  background: rgb(78, 174, 187);
+}
+
+#classes-description:focus {
+  outline: none;
+  box-shadow: none;
+  border: none;
+}

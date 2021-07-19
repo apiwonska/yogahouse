@@ -2,34 +2,45 @@
 
 Live demo: [url](urlname)
 
-A website for fake yoga school with class schedule, blog, contact form and admin panel. App fully created with Django framework.
-This was the first Django project ever that I have created, so don't expect too much in terms of good quality code ;-)
+A website for fake yoga school with class schedule, blog, contact form and admin panel. App fully created with Django framework. The project was created to learn the basics of Django framework.
 
-You can log in to admin panel as user1 with view permissions for all models.
+This was the first bigger project. It is written with little use of js which I didn't know at the point of creating this app.
+With time tests were added and main accessibility issues fixed.
+
+You can log in to the admin panel as user1 with view permissions for all models.
 login: user1, password: P@ssword123
 
 ## Main features:
-
-* Home page and page with class descriptions
-* Class schedule, where students can sign up for lessons
-* Blog
+* Admin panel for managing application content
+* User can create an account and recuperate the password if lost. 
+* Home page - not editable with the admin site
+* About page - admin can add and modify instructors data
+* Prices page - admin can add and modify information about prices.
+* Classes page - admin can add and modify class types
+* Terms and conditions page - admin can add and modify content
+* **Schedule** page - responsive schedule in form of a table for large screens and accordion for small screens.
+An authenticated user can sign for a scheduled class or sign off if necessary. For the table schedule, the modal displays the number of available places as well as information about class and teacher. Table schedule can also be searched by class type. The accordion schedule lack this functionality. It is only possible to sign up or off the class.
+Users can view scheduled classes for the coming weeks. It's not possible to sign up for the class in the past.
+Users can view and search a list of classes for which they signed up.
+Site admin can add new types of classes, new courses and schedule classes. 
+* Blog and event pages. Site admin can create and modify items.
 * Contact form
-* Admin panel for managing app content especially usefull for controlling class schedule
 
 ## Used technologies and libraries:
-
 * Django framework
 * Bootstrap
+* django-imagekit
+* django-ckeditor
+* Postgresql
 
 ## Setup for developement:
-
 Prerequisites: you need to install python3, python3-pip, python3-venv  on your machine.
 
 * Clone the repository
 ```
 git clone https://github.com/apiwonska/yogahouse.git
 ```
-* Setup and activate the virtual envirnonment on your computer (anywhere outside the project)
+* Setup and activate the virtual environment on your computer (anywhere outside the project)
 ```
 $ python3 -m venv myvenv
 $ . myvenv/bin/activate
@@ -58,29 +69,26 @@ EMAIL_PORT=your_email_port
 ```
 $ python manage.py migrate
 ```
-* Create admin account
+* Create an admin account
 ```
 $ python manage.py createsuperuser
 ```
 * Make migrations
 ```
-$ python manage.py makemigrations yogahouse
+$ python manage.py makemigrations
 $ python manage.py migrate
 ```
-* Start the developement server
+* Start the development server
 ```
 $ python manage.py runserver
 ```
 * Open localhost:8000 in the browser to see the app.
 * Url for admin panel http://localhost:8000/admin/ 
 
-
 ## Credits:
-
 * Icons come from: fontawsome.com
 * Photos come from unsplash.com
 
 ## To improve:
-
-* Improve accessibility
+* Rewrite schedule application with the use of js and endpoints to read and write data to the database.
 * Conform to the PEP 8 style guide

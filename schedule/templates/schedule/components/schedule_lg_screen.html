@@ -1,0 +1,68 @@
+{% load static %}
+
+{% block schedule %}
+<div class="row" id="schedule-lg" aria-hidden="true">
+  <div class="col d-none d-md-block table-responsive">
+          
+  <!-- Filter by class type -->
+  <form method="GET" action="">
+    {% if day %}
+      <input type="hidden" name="day" value="{{day}}">
+    {% endif %}
+    <div class="form-row d-flex justify-content-end mb-3"> 
+      <div class="form-group ">		      
+          <select id="inputClasstype" class="form-control" name="class-type" onchange="this.form.submit()" aria-label="typ zajęć">
+            <option value='' {% if not classtype %} selected {% endif %}> Wszystkie zajęcia... </option>
+            {% for c in class_types %}
+            <option value={{c.slug}} {% if classtype == c.slug %} selected {% endif %} >{{ c.name }}</option>	
+            {% endfor %}
+          </select>
+        </div>
+    </div>	
+  </form>	
+
+  <table class="table table-bordered text-center">
+    <thead class="text-uppercase ">
+      <tr>
+        <th class="align-middle" scope="col">Godz.</th>
+        {% for day in weekdays %}
+          <th class="align-middle {% if day.2 == today %}today{% endif %}" scope="col"> 
+          {{day.0}} </br> {{day.1}} 
+          </th>
+        {% endfor %}
+      </tr>
+    </thead>
+    <tbody>
+      {% for t in start_time %}
+      <tr>
+        <th class="align-middle" scope="row">{{t|time:"G:i"}}</th>
+        {% for day in weekdays %}
+          <td>
+            {% for class in classes_during_week %}
+              {% if day.2 == class.date and t == class.start_time %}
+                <button 
+                  id="schedule-lg-class"
+                  style="background-color:#{{class.course.class_type.color | slice:'1:'}}B3;"
+                  data-toggle="modal" 
+                  data-target="#classModal{{class.id}}">
+                    {{class.course.class_type}} 
+                  <br>
+                  <small>{{ class.teacher.name }}</small>
+                </button> 
+
+                {% block modal-class %}
+                  {% include 'schedule/components/modal_class.html' %}
+                {% endblock modal-class %}
+
+              {% endif %}
+            {% endfor %}
+          </td>
+        {% endfor %}
+      </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+				
+  </div>
+</div>	
+{% endblock schedule %}

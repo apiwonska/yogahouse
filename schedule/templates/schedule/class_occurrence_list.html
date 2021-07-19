@@ -3,16 +3,16 @@
 
 {% block title %} Grafik | {% endblock %}
 
-{% block head %} 
+{% block style %} 
 <link href="{% static 'schedule/style.css' %}" rel="stylesheet" />
 {% endblock %}
 
 {% block content %}
 
 	<!-- Schedule Table -->
-	<section class="pt-5" id="schedule" >
+	<section class="pt-5 max-width-lg mx-auto" id="schedule" >
 		<h1 class="text-center mb-5">Grafik Zajęć</h1>
-		<div class="container">
+		<div class="container-fluid">
 			<!-- Go to another week (next or previous) -->
 			<div class="row justify-content-center mb-4">
 				<div class="col-md-6 col-xl-4 px-3 mobile-mb-3">
@@ -24,6 +24,7 @@
 								</a>
 							</div>
 						{% endif %}
+
 						<div class="col-sm mx-3 mx-sm-0 px-2 mb-2">
 							<a href="{% url 'schedule:week_view' %}" class="text-uppercase btn btn-outline-secondary btn-block ">
 							Ten tydzień
@@ -31,222 +32,34 @@
 						</div>
 					</div>			
 				</div>
-				<div class="d-flex align-items-center justify-content-between col-md-6 col-xl-4">
-					<h4>
-						<a href="{% url 'schedule:week_view' %}?day={{start_previous_week}}" class="mx-4">
-							<i class="fas fa-angle-left"></i>
-						</a>
-					</h4>
-					<h4>{{weekdays.0.1}}&nbsp-&nbsp{{weekdays.6.1}}	</h4>
-					<h4>
-						<a href="{% url 'schedule:week_view' %}?day={{start_next_week}}" class="mx-4">
-							<i class="fas fa-angle-right"></i>
-						</a>
-					</h4>
-				</div>				
-			</div>	
-			
-			<!-- SCHEDULE FOR MEDIUM SCREEN AND BIGGER /Table/ -->
-			<div class="row" id="schedule-md">
-				<div class="col d-none d-md-block table-responsive">
-								
-					<!-- Filter by class type -->
-					<form method="GET" action="">
-						{% if day %}
-							<input type="hidden" name="day" value="{{day}}">
-						{% endif %}
-						<div class="form-row d-flex justify-content-end mb-3"> 
-							<div class="form-group mr-2">		      
-						      <select id="inputClasstype" class="form-control" name="class-type" onchange="this.form.submit()">
-						        <option value='' {% if not classtype %} selected {% endif %}> Wszystkie zajęcia... </option>
-						        {% for c in class_types %}
-						        <option value={{c.slug}} {% if classtype == c.slug %} selected {% endif %} >{{ c.name }}</option>	
-						        {% endfor %}
-						      </select>
-						    </div>							
-						</div>	
-					</form>	 
-					<!--Table schedule -->
-					<table class="table table-bordered text-center">
-						<thead class="text-uppercase ">
-							<tr>
-								<th>Godz.</th>
-								{% for day in weekdays %}									
-									<th style="{% if day.2 == today %}background-color:#60606c;{% endif %}"> 
-									{{day.0}} </br> {{day.1}} 
-									</th>							
-								{% endfor %}
-							</tr>							
-						</thead>
-						<tbody>
-							{% for t in start_time %}
-							<tr>
-								<th>{{t|time:"G:i"}}</th>
-								<!-- Classes in (big) schedule -->
-								{% for day in weekdays %}
-									<td>
-										{% for class in classes_during_week %}
-											{% if day.2 == class.date and t == class.start_time %}
-										 		<button 
-										 		type="button"
-										 		class="btn btn-sm" 
-										 		style="color:white; background-color:{{class.course.class_type.color}};"
-										 		data-toggle="modal" 
-										 		data-target="#classModal{{class.id}}">
-										 			{{class.course.class_type}} 
-										 			<br>
-										 			<small>{{ class.teacher.name }}</small>
-										 		</button> 
-										 		<!-- Class Modal -->
-												<div class="modal schedule-modal" id="classModal{{class.id}}">
-													<div class="modal-dialog modal-dialog-centered">
-														<div class="modal-content">
-															<div class="modal-header">
-																<h5 class="modal-title">{{class.course.class_type}}</h5>
-																<button class="close" data-dismiss="modal">
-																	<span>&times;</span>
-																</button>
-															</div>
-															<div class="modal-body">
-																<div class="px-3">																
-																	<div class="row">
-																		<div class="col-4">
-																			<h6 class="mb-3">Instruktor:</h6>
-																			<img src="{{ class.teacher.description.image.url }}" class="img-fluid rounded-circle mb-3">
-																			<p class="text-center">
-																				<a href="{% url 'about:about' %}" >{{ class.teacher.name }}</a>
-																			</p>																
-																		</div>
-																		<div class="col-8">
-																			<h6 class="mb-3">Opis zajęć:</h6>
-																			<p class="text-justify mb-2">
-																				{{class.course.class_type.description.description|truncatewords:40}}
-																				<a href="{% url 'classes:classes' %}" >Dowiedz się więcej</a>
-																			</p>
-																		</div>
-																	</div>
-																	<hr>
-																	<div class="row mt-2">
-																		<div class="col text-left">
-																			<p class="mb-0" style="color:black;">
-																				Dzień: <b>{{class.date}}</b> &nbsp|&nbsp Godz: <b>{{class.start_time}}</b> &nbsp|&nbsp Czas trwania: {{class.course.duration}}min<br>
-																				Wolnych miejsc: <b>{{class.number_of_places_left}}</b>
-																			</p>																			
-																		</div>																		
-																	</div> 
-																</div>			
-															</div>	
-															
-															<div class="modal-footer">
-																{% if user.is_authenticated %}	
-																	<p 	class="mb-0 mx-4">{{ messages.modal }}</p>	
-																	{% if class.status == 'Planowane' %}
-																		{% if user not in class.students.all  %}
-																			{% if class.number_of_places_left > 0 %}
-																				<form action="" method="POST">
-																					{% csrf_token %}
-																					<input type="hidden" name="class-id" value="{{class.id}}">
-																					<input type="hidden" name="action" value="sign-up">
-																					<input type="hidden" name="modal" value="True">
-																					<button class="btn btn-info" type="submit">
-																						Zapisz się	
-																					</button>
-																				</form>
-																			{% else %}
-																				<p 	class="mb-0 mx-4" style="color:red;"> <b>Brak wolnych miejsc</b> </p>
-																			{% endif %}
-																		{% else %}
-																			<form action="" method="POST">
-																				{% csrf_token %}
-																				<input type="hidden" name="class-id" value="{{class.id}}">
-																				<input type="hidden" name="action" value="sign-off">
-																				<input type="hidden" name="modal" value="True">
-																				<button class="btn btn-info" type="submit">
-																					Wypisz się	
-																				</button>
-																			</form>
-																		{% endif %}
-																	{% elif class.status == 'Trwają' %}
-																		<p 	class="mb-0 mx-4" style="color:red;"> <b>Zapisy zakończone</b> </p>								
-																	{% elif class.status == 'Zakończone' %}
-																		<p 	class="mb-0 mx-4" style="color:red;"> <b>Te zajęcia już się odbyły</b> </p>
-																	{% endif %}																	
-																{% endif %} 																
-																<button class="btn btn-secondary" data-dismiss="modal">Close</button>
-															</div>			
-														</div>
-													</div>
-												</div>
-										 	{% endif %}											
-										{% endfor %}
-									</td>
-								{% endfor %}
-							</tr>
-							{% endfor %}					
-						</tbody>
-					</table>
-					{% if messages %} <p class="text-center mt-4" style="color:grey;"> {{ messages.week_view }} </p> {% endif %}
+				<div id="select-week" class="h4 d-flex align-items-center justify-content-between col-md-6 col-xl-4">
+					<a 
+						href="{% url 'schedule:week_view' %}?day={{start_previous_week}}" 
+						class="mx-4" 
+						aria-label="poprzedni tydzień">
+						<i class="fas fa-angle-left"></i>
+					</a>
+					<h2 class="h4" > {{weekdays.0.1}}&nbsp-&nbsp{{weekdays.6.1}}	</h2>
+					<a
+						href="{% url 'schedule:week_view' %}?day={{start_next_week}}" 
+						class="mx-4"
+						aria-label="następny tydzień"
+					>
+						<i class="fas fa-angle-right"></i>
+					</a>
 				</div>
 			</div>	
 
-			<!-- SCHEDULE FOR SMALL SCREENS /Accordeon/ -->
-			<div class="row">
-				<div class="col d-md-none" id="schedule-sm">
-					{% if messages.week_view %}<p class="text-center mb-3" style="color:grey;"> {{ messages.week_view }} </p> {% endif %}
-					{% if messages.modal %}<p class="text-center mb-3" style="color:grey;"><i>{{ messages.modal }}</i> </p> {% endif %}
-					{% if classes_during_week %}
-						{% 	for day in weekdays %}
-							<div class="card">
-								<div class="card-header text-center">
-									<h5 class="mb-0">
-										<div href="#collapse_{{day.0}}" data-toggle="collapse" data-parent="#schedule-sm">
-											<i class="fas fa-arrow-circle-down"></i>&nbsp{{ day.0 }}&nbsp-&nbsp{{day.1}}
-										</div>
-									</h5>
-								</div>
-								<div id="collapse_{{day.0}}" class="collapse {% if submit.day == day.0 %} show {% endif %}">
-									<div class="card-body">
-										<table class="">	
-											<tbody>
-												{% for class in classes_during_week %}
-													{% if day.2 == class.date %}
-														<tr>
-															<td class="d-flex align-items-center">
-																<span><b>{{ class.start_time|time:"G:i" }}</b> - {{ class.course.class_type }} / 
-																<small class="text-muted align-bottom">{{ class.teacher.name }}</small>  </span>	
-																{% if user.is_authenticated and class.status == 'Planowane' %} 
-																	{% if user not in class.students.all and class.number_of_places_left > 0 %}
-																		<form action="" method="POST">
-																			{% csrf_token %}
-																			<input type="hidden" name="class-id" value="{{class.id}}">
-																			<input type="hidden" name="action" value="sign-up">
-																			<input type="hidden" name="day" value={{day.0}}>
-																			<button class="btn btn-info btn-sm ml-2" type="submit">Zapisz</button>		
-																		</form>
-																	{% elif user in class.students.all  %}
-																		<form action="" method="POST">
-																			{% csrf_token %}
-																			<input type="hidden" name="class-id" value="{{class.id}}">
-																			<input type="hidden" name="action" value="sign-off">
-																			<input type="hidden" name="day" value={{day.0}}>
-																			<button class="btn btn-info btn-sm ml-2" type="submit">Wypisz</button>
-																		</form>
-																	{% endif %}
-																{% endif %}															
-															</td>				
-														</tr>
-													{% endif %}
-												{% endfor %}										
-											</tbody>
-										</table>
-									</div>
-								</div>
-							</div>
-						{% endfor %}
-					{% endif %}
+			{% block schedule %}
+				{% include 'schedule/components/schedule_lg_screen.html' %}
+			  {% include 'schedule/components/schedule_sm_screen.html' %}
+			{% endblock %}
 
-				</div>
+			{% if messages.week_view %}
+      <div class="alert alert-secondary text-center mt-3" role="alert">
+				{{ messages.week_view }}
 			</div>
+    	{% endif %}
 
 		</div>
 	</section>

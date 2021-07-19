@@ -1,0 +1,73 @@
+{% load static %}
+
+{% block schedule %}
+<div class="row">
+  <div class="col d-md-none" id="schedule-sm">
+    {% if messages.modal %}<p class="text-center mb-3" style="color:grey;"><i>{{ messages.modal }}</i> </p> {% endif %}
+    {% if classes_during_week %}
+      <div id="accordion-class-schedule">
+      {% 	for day in weekdays %}
+        <div class="card">
+          <div id="heading-{{day.0}}" class="card-header text-center p-0">
+            <h3 class="h4 mb-0 p-0">
+              <button 
+                class="w-100 h-100 p-2" 
+                href="#collapse-{{day.0}}" 
+                data-toggle="collapse" 
+                aria-controls="collapse-{{day.0}}"
+              >
+                <i class="fas fa-arrow-circle-down"></i>&nbsp{{ day.0 }}&nbsp-&nbsp{{day.1}}
+              </button>
+            </h3>
+          </div>
+          <div 
+            id="collapse-{{day.0}}" 
+            class="collapse {% if submit.day == day.0 %} show {% endif %}" 
+            aria-labelledby="heading-{{day.0}}"
+            data-parent="#accordion-class-schedule" 
+          >
+            <div class="card-body">
+              <table class="">	
+                <tbody>
+                  {% for class in classes_during_week %}
+                    {% if day.2 == class.date %}
+                      <tr>
+                        <td class="d-flex align-items-center">
+                          <span><b>{{ class.start_time|time:"G:i" }}</b> - {{ class.course.class_type }} / 
+                          <small class="text-muted align-bottom">{{ class.teacher.name }}</small>  </span>	
+                          {% if user.is_authenticated and class.status == 'Planowane' %} 
+                            {% if user not in class.students.all and class.number_of_places_left > 0 %}
+                              <form action="" method="POST">
+                                {% csrf_token %}
+                                <input type="hidden" name="class-id" value="{{class.id}}">
+                                <input type="hidden" name="action" value="sign-up">
+                                <input type="hidden" name="day" value={{day.0}}>
+                                <button class="btn btn-info btn-sm ml-2" type="submit">Zapisz</button>		
+                              </form>
+                            {% elif user in class.students.all  %}
+                              <form action="" method="POST">
+                                {% csrf_token %}
+                                <input type="hidden" name="class-id" value="{{class.id}}">
+                                <input type="hidden" name="action" value="sign-off">
+                                <input type="hidden" name="day" value={{day.0}}>
+                                <button class="btn btn-info btn-sm ml-2" type="submit">Wypisz</button>
+                              </form>
+                            {% endif %}
+                          {% endif %}															
+                        </td>				
+                      </tr>
+                    {% endif %}
+                  {% endfor %}										
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+      {% endfor %}
+      </div>
+    {% endif %}
+
+  </div>
+</div>
+
+{% endblock schedule %}

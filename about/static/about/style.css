@@ -14,6 +14,11 @@
   object-fit: cover !important;
 }
 
+.about-image {
+  width: 100%;
+  max-width: 250px;
+}
+
 .ekko-lightbox-nav-overlay a {
   font-size: 30px;
   text-decoration: none;

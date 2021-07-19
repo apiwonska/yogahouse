@@ -1,22 +1,65 @@
+#schedule.max-width-lg {
+  max-width: 1140px ;
+}
 
-#schedule-md thead th {
+#select-week .h2 {
+  font-size: 1.5rem !important;
+  line-height: 1.2;
+}
+
+#schedule-lg table {
+  font-size: 0.9rem;
+  color: var(--black-color);
+}
+
+#schedule-lg thead th {
   width: 12.5%;
   background: var(--grey-color);
-  color: white;
+  color: var(--black-color);
 }
 
-#schedule-md table {
-  font-size: 0.9rem;
+#schedule-lg td {
+  padding: 8px !important;
 }
 
-#schedule-sm .card-header {
-  background: var(--grey-color);
-  color: white;
+#schedule-lg .today {
+  background-color: #5162fdc5;
+}
+
+#schedule-lg-class {
+  display: inline-block;
+  text-align: center;
+  vertical-align: middle;
+  margin: 1px;
+  width: 100%;
+  color: black;
+  font-size: 1rem;
+  border-radius: 0.25rem;
+  line-height: 1.4;
+  padding: 6px;
+}
+
+#schedule-lg-class:hover {
   cursor: pointer;
 }
 
-#schedule-sm .card-header:hover {
-  background: rgb(133, 133, 147);
+#accordion-class-schedule button {
+  font-size: 1.4rem;
+  background-color: rgb(195, 195, 195);
+  color: var(--black-color); 
+
+}
+
+#accordion-class-schedule button:hover {
+  background-color: var(--grey-color);
+}
+
+#accordion-class-types button:hover {
+  background: rgb(78, 174, 187);
+}
+
+.schedule-modal {
+  font-size: 1rem;
 }
 
 .schedule-modal p {
@@ -26,4 +69,16 @@
 .schedule-modal a {
   color: black;
   font-weight: bolder;
+  text-decoration: underline;
+}
+
+ul.message-list {
+  margin-bottom: 0;
+  list-style: none;
+}
+
+.modal-img {
+  width: 100px;
+  height: 100px;
+  object-fit: cover;
 }

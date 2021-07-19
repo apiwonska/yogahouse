@@ -21,7 +21,7 @@ a {
   text-decoration: none;
 }
 
-button {
+button, button:hover {
   border:none;
 }
 
@@ -90,12 +90,7 @@ div:focus-visible  {
   border-color: var(--blue-color);
   color: rgb(1, 51, 80);
 }
-
-.btn-secondary {
-  background: var(--grey-color);
-  border-color: var(--grey-color);
-}
-
+#schedule-lg-class:hover,
 .btn-success {
   background: var(--marine-color);
   border-color: var(--marine-color);

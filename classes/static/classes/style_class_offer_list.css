@@ -9,19 +9,14 @@
   cursor: pointer;
 }
 
-#classes-description .card-header h3 .btn-link {
-  font-size: 1.5rem;
+#accordion-class-types button {
+  font-size: 1.4rem;
   color: rgb(1, 51, 80);  
-  text-decoration: none; 
+  background-color: var(--blue-color);
 }
 
-#classes-description .card-header h3 .btn-link:hover,
-#classes-description .card-header h3 .btn-link:visited {
-  text-decoration: none; 
-}
-
-#classes-description .card-header:hover {
-  background: rgb(78, 174, 187);
+#accordion-class-types button:hover {
+  background-color: rgb(78, 174, 187);
 }
 
 #classes-description:focus {

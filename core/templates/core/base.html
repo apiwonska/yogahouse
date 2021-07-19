@@ -79,12 +79,10 @@
 
             <div class="collapse navbar-collapse mt-4 mt-lg-0" id="navbarCollapse">
               <ul class="navbar-nav mx-auto">
-                <!-- prettier-ignore-attribute -->
                 <li class="nav-item px-lg-3 {% if request.path == '/' %} active {% endif %}">
                   <a href="{% url 'home' %}" class="nav-link text-expanded">
                     <span class="nav-span">Strona Główna</span></a>
                 </li>
-                <!-- prettier-ignore-attribute -->
                 <li
                   class="nav-item px-lg-3 {% if request.path == '/o-nas/' %} active {% endif %}"
                 >
@@ -92,7 +90,6 @@
                     ><span class="nav-span">O Nas</span></a
                   >
                 </li>
-                <!-- prettier-ignore-attribute -->
                 <li
                   class="nav-item px-lg-3 dropdown {% if '/zajecia/' in request.path %} active {% endif %}"
                 >
@@ -123,7 +120,6 @@
                     </li>
                   </ul>
                 </li>
-                <!-- prettier-ignore-attribute -->
                 <li
                   class="nav-item px-lg-3 {% if request.path == '/grafik/' %} active {% endif %}"
                 >
@@ -133,7 +129,6 @@
                     ><span class="nav-span"><i class="far fa-calendar-alt"></i> Grafik</span></a
                   >
                 </li>
-                <!-- prettier-ignore-attribute -->
                 <li
                   class="nav-item px-lg-3 {% if request.path == '/wydarzenia/' %} active {% endif %}"
                 >
@@ -141,7 +136,6 @@
                     ><span class="nav-span">Wydarzenia</span></a
                   >
                 </li>
-                <!-- prettier-ignore-attribute -->
                 <li
                   class="nav-item px-lg-3 {% if request.path == '/kontakt/' %} active {% endif %}"
                 >
@@ -149,7 +143,6 @@
                     ><span class="nav-span">Kontakt</span></a
                   >
                 </li>
-                <!-- prettier-ignore-attribute -->
                 <li
                   class="nav-item px-lg-3 {% if request.path == '/blog/' %} active {% endif %}"
                 >
@@ -241,7 +234,7 @@
       </div>
     </div>
 
-    <button id="return-to-top" aria-hide>
+    <button id="return-to-top" aria-hidden="true" aria-label="przewiń do góry">
       <i class="fas fa-chevron-up"></i>
     </button>
 

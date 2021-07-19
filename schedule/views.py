@@ -95,7 +95,6 @@ def class_occurrence_list(request):
     }
     return render(request, "schedule/class_occurrence_list.html", context)
 
-
 @login_required
 def user_class_occurrence_list(request):
     messages = {}
@@ -133,7 +132,7 @@ def user_class_occurrence_list(request):
         user_classes = user_classes.filter(
             date__year=int(year), date__month=int(month))
 
-    paginator = Paginator(user_classes, 3)
+    paginator = Paginator(user_classes, 10)
     page = request.GET.get('page')
     user_classes = paginator.get_page(page)
     context = {

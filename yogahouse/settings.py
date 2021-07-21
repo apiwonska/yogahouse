@@ -27,9 +27,9 @@ SECRET_KEY = config('SECRET_KEY')
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = config('DEBUG', default=False, cast=bool)
+# DEBUG = True
 
-ALLOWED_HOSTS = []
-
+ALLOWED_HOSTS = ['yogahouse-ap.herokuapp.com']
 
 # Application definition
 
@@ -52,6 +52,7 @@ INSTALLED_APPS = [
     'events.apps.EventsConfig',
     'schedule.apps.ScheduleConfig',
     'social.apps.SocialConfig',
+    'storages',
 ]
 
 MIDDLEWARE = [
@@ -90,6 +91,7 @@ WSGI_APPLICATION = 'yogahouse.wsgi.application'
 # https://docs.djangoproject.com/en/2.1/ref/settings/#databases
 
 DATABASES = {'default': dj_database_url.config(default=config('DATABASE_URL'))}
+DEFAULT_AUTO_FIELD = 'django.db.models.AutoField'
 
 # Password validation
 # https://docs.djangoproject.com/en/2.1/ref/settings/#auth-password-validators
@@ -123,34 +125,37 @@ USE_L10N = True
 
 USE_TZ = True
 
-# STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
+STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
 STATIC_URL = '/static/'
 
-# Authorization redirection
-LOGIN_REDIRECT_URL = 'home'
-LOGOUT_REDIRECT_URL = 'home'
+AWS_ACCESS_KEY_ID = config('AWS_ACCESS_KEY_ID')
+AWS_SECRET_ACCESS_KEY = config('AWS_SECRET_ACCESS_KEY')
+AWS_STORAGE_BUCKET_NAME = config('AWS_STORAGE_BUCKET_NAME')
+AWS_S3_REGION_NAME = 'eu-central-1'
+AWS_S3_FILE_OVERWRITE = False
+AWS_DEFAULT_ACL = 'public-read'
+DEFAULT_FILE_STORAGE = 'storages.backends.s3boto3.S3Boto3Storage'
+STATICFILES_STORAGE = 'storages.backends.s3boto3.S3StaticStorage'
+AWS_STATIC_LOCATION = 'static'
 
-STATICFILES_DIRS = (
-    os.path.join(BASE_DIR, 'about'),
-    os.path.join(BASE_DIR, 'classes'),
-    os.path.join(BASE_DIR, 'events'),
-    os.path.join(BASE_DIR, 'blog'),
-    os.path.join(BASE_DIR, 'schedule'),
-    os.path.join(BASE_DIR, 'contact'),
-)
+DEFAULT_FILE_STORAGE = 'yogahouse.storages.MediaStorage'
 
+AWS_S3_CUSTOM_DOMAIN = f"{AWS_STORAGE_BUCKET_NAME}.s3.{AWS_S3_REGION_NAME}.amazonaws.com"
+# AWS_IS_GZIPPED = True
 
 # Media config
 MEDIA_URL = '/media/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 
+# Authorization redirection
+LOGIN_REDIRECT_URL = 'home'
+LOGOUT_REDIRECT_URL = 'home'
 
 # Email config
 EMAIL_HOST = config('EMAIL_HOST')
 EMAIL_HOST_USER = config('EMAIL_HOST_USER')
 EMAIL_HOST_PASSWORD = config('EMAIL_HOST_PASSWORD')
 EMAIL_PORT = config('EMAIL_PORT')
-
 
 # Ckeditor
 CKEDITOR_CONFIGS = {
@@ -163,5 +168,7 @@ CKEDITOR_CONFIGS = {
         ]
     }
 }
+
+IMAGEKIT_DEFAULT_IMAGE_CACHE_BACKEND = 'imagekit.imagecache.NonValidatingImageCacheBackend' 
 
 django_heroku.settings(locals())

@@ -1,1 +1,1 @@
-web: gunicorn yogahome-ap.wsgi
+web: gunicorn yogahouse.wsgi

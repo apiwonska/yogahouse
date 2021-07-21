@@ -17,7 +17,8 @@
 				{% for event in events %}
 				<div class="col-md-6 col-lg-4 mb-4 d-flex align-items-stretch">
 					<div class="card">
-						<img src="{{event.image_thumbnail.url}}" class="card-img-top img-fluid" alt="">
+						<img src="{{event.image_thumbnail.url}}" class="card-img-top img-fluid" alt="" 
+						onerror="this.src={% static 'events/img/event_default.jpg' %};">
 						<div class="card-body d-flex flex-column ">
 							<h2 class="card-title my-2">{{event.title | capfirst}}</h2>
 							<p class="card-subtitle text-muted mt-2 mb-3">{{event.date_start|date:"d.m.Y"}}, {{event.place}}</p>

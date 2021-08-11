@@ -11,10 +11,29 @@ html {
   min-width: 350px;
 }
 
+h1, h2, h3, h4, h5, h6,
+.h1, .h2, .h3, .h4, .h5, .h6, .btn {
+  font-family: 'Lato', 'Roboto', sans-serif;
+  font-weight: 400;
+}
+
 body {
   padding: 0;
   margin: 0;
   color: var(--black-color);
+  font-family: 'KoHo', 'Roboto', sans-serif;
+  font-weight: 400;
+  font-size: 18px;
+}
+
+b {
+  font-family: 'KoHo', 'Roboto', sans-serif;
+  font-weight: 600;
+}
+
+th {
+  font-family: 'Lato', 'Roboto', sans-serif;
+  font-weight: 600;
 }
 
 a {
@@ -115,7 +134,7 @@ div:focus-visible  {
 
 #mainNav .nav-item .nav-link {
   text-transform: uppercase;
-  font-family: 'Ubuntu', sans-serif;
+  font-family: 'Lato', 'Roboto', sans-serif;
   font-weight: bold;
   font-size: 0.9rem;
   color: white;
@@ -192,11 +211,6 @@ div:focus-visible  {
 
 #userNav .nav-item a:hover {
   color: black;
-}
-
-.style-light {
-  font-family: KoHo;
-  color: #575757;
 }
 
 .footer a {

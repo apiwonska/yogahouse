@@ -13,6 +13,7 @@ db.sqlite3
 /media
 /static
 /staticfiles
+yogahouse/settings/local.py
 
 # Unit test / coverage report
 htmlcov/
@@ -20,3 +21,5 @@ htmlcov/
 .coveragerc
 setup.cfg
 .env
+
+.vscode/

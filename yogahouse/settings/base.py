@@ -14,7 +14,6 @@ import os
 import sys
 
 import dj_database_url
-import django_heroku
 from decouple import config
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
@@ -26,14 +25,6 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
 # SECURITY WARNING: keep the secret key used in production secret!
 SECRET_KEY = config('SECRET_KEY')
-
-# SECURITY WARNING: don't run with debug turned on in production!
-# DEBUG = config('DEBUG', default=False, cast=bool)
-DEBUG = True
-
-# ALLOWED_HOSTS = ['yogahouse-ap.herokuapp.com']
-ALLOWED_HOSTS = []
-
 
 # Application definition
 
@@ -135,22 +126,6 @@ if 'test' in sys.argv or 'test_coverage' in sys.argv:
     USE_TZ = True
     DATABASES['default']['ENGINE'] = 'django.db.backends.sqlite3'
 
-if DEBUG is False:
-    AWS_ACCESS_KEY_ID = config('AWS_ACCESS_KEY_ID')
-    AWS_SECRET_ACCESS_KEY = config('AWS_SECRET_ACCESS_KEY')
-    AWS_STORAGE_BUCKET_NAME = config('AWS_STORAGE_BUCKET_NAME')
-    AWS_S3_REGION_NAME = 'eu-central-1'
-    AWS_S3_FILE_OVERWRITE = False
-    AWS_DEFAULT_ACL = None
-    DEFAULT_FILE_STORAGE = 'storages.backends.s3boto3.S3Boto3Storage'
-    STATICFILES_STORAGE = 'storages.backends.s3boto3.S3StaticStorage'
-    AWS_STATIC_LOCATION = 'static'
-    DEFAULT_FILE_STORAGE = 'yogahouse.storages.MediaStorage'
-    AWS_S3_CUSTOM_DOMAIN = (
-        f'{AWS_STORAGE_BUCKET_NAME}.s3.{AWS_S3_REGION_NAME}.amazonaws.com'
-    )
-    AWS_IS_GZIPPED = True
-    AWS_LOCATION = 'static'
 
 STATIC_URL = '/static/'
 STATIC_ROOT = os.path.join(BASE_DIR, 'static')
@@ -182,5 +157,3 @@ CKEDITOR_CONFIGS = {
 }
 
 IMAGEKIT_DEFAULT_IMAGE_CACHE_BACKEND = 'imagekit.imagecache.NonValidatingImageCacheBackend' 
-
-# django_heroku.settings(locals(), staticfiles=False)

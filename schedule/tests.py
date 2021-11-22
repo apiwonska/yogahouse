@@ -13,12 +13,17 @@ from .models import ClassOccurrence, Course
 from .views import class_occurrence_list, user_class_occurrence_list
 
 
-class FixedDate(datetime):
+class FixedDateTime(datetime):
 
     @classmethod
     def today(cls):
         return cls(2019, 1, 14)
 
+class FixedDate(date):
+
+    @classmethod
+    def today(cls):
+        return cls(2019, 1, 14)
 
 class UrlsTest(TestCase):
 
@@ -56,14 +61,14 @@ class ViewsTest(TestCase):
     def setUp(self):
         self.client = Client()
 
-    @patch('schedule.views.datetime', FixedDate)
+    @patch('schedule.views.datetime', FixedDateTime)
     def test_week_schedule_initial_view(self):
         '''Initial view for current week should show 3 classes'''
         response = self.client.get(reverse('schedule:week_view'))
         self.assertEqual(response.status_code, 200)
         self.assertEqual(len(response.context[-1]['classes_during_week']), 3)
 
-    @patch('schedule.views.datetime', FixedDate)
+    @patch('schedule.views.datetime', FixedDateTime)
     def test_week_schedule_for_past_weeks_not_available(self):
         '''The view for past weeks should return message schedule is not available'''
         response = self.client.get(
@@ -73,7 +78,7 @@ class ViewsTest(TestCase):
         self.assertEqual(
             response.context[-1]['messages']['week_view'], 'Grafik niedostępny')
 
-    @patch('schedule.views.datetime', FixedDate)
+    @patch('schedule.views.datetime', FixedDateTime)
     def test_week_schedule_next_week_available(self):
         '''The view for the next week should show 3 classes'''
         response = self.client.get(
@@ -81,7 +86,7 @@ class ViewsTest(TestCase):
         self.assertEqual(response.status_code, 200)
         self.assertEqual(len(response.context[-1]['classes_during_week']), 3)
 
-    @patch('schedule.views.datetime', FixedDate)
+    @patch('schedule.views.datetime', FixedDateTime)
     def test_week_schedule_3rd_week_from_today_available(self):
         '''The view for the week after next week should show 3 classes'''
         response = self.client.get(
@@ -89,7 +94,7 @@ class ViewsTest(TestCase):
         self.assertEqual(response.status_code, 200)
         self.assertEqual(len(response.context[-1]['classes_during_week']), 3)
 
-    @patch('schedule.views.datetime', FixedDate)
+    @patch('schedule.views.datetime', FixedDateTime)
     def test_week_schedule_4th_week_from_today_not_available(self):
         '''The view for 4th week from current week, should return message "schedule is not available"'''
         response = self.client.get(
@@ -99,7 +104,7 @@ class ViewsTest(TestCase):
         self.assertEqual(
             response.context[-1]['messages']['week_view'], 'Grafik niedostępny')
 
-    @patch('schedule.views.datetime', FixedDate)
+    @patch('schedule.views.datetime', FixedDateTime)
     def test_week_schedule_no_classes(self):
         '''The view schould show the message "Brak zaplanowanych zajęć"'''
         with patch('schedule.views.datetime') as mock_datetime:
@@ -113,7 +118,7 @@ class ViewsTest(TestCase):
             self.assertEqual(
                 response.context[-1]['messages']['week_view'], 'Brak zaplanowanych zajęć')
 
-    @patch('schedule.views.datetime', FixedDate)
+    @patch('schedule.views.datetime', FixedDateTime)
     def test_week_view_search_class_type(self):
         '''The view should show 2 classes "class type 0"'''
         response = self.client.get(
@@ -147,9 +152,9 @@ class ViewsTest(TestCase):
         self.assertEqual(
             response.context[-1]['messages']['modal'], 'Zostałeś wypisany')
 
-    @patch('schedule.views.datetime', FixedDate)
+    @patch('schedule.views.date', FixedDate)
     def test_user_class_list_initial_view_returns_200_status_and_correct_context(self):
-        '''Check response status and context that is used to display searhc options on the page'''
+        '''Check response status and context that is used to display search options on the page'''
         class_occurrence_2017 = ClassOccurrenceFactory(
             date=datetime(2017, 1, 2))
         class_occurrence_2017.students.add(self.user)

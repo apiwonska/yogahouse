@@ -6,7 +6,7 @@ from django.urls import resolve, reverse
 import pytz
 
 from .models import Category, Post
-from .views import post_detail, post_list, search
+from .views import post_detail, post_list
 
 
 class UrlsTest(TestCase):
@@ -14,10 +14,6 @@ class UrlsTest(TestCase):
     def test_posts_url_resolves(self):
         url = reverse('blog:posts')
         self.assertEqual(resolve(url).func, post_list)
-
-    def test_search_url_resolves(self):
-        url = reverse('blog:search')
-        self.assertEqual(resolve(url).func, search)
 
     def test_post_url_resolves(self):
         url = reverse('blog:post', args=[1])
@@ -51,7 +47,7 @@ class ViewsTest(TestCase):
             response, 'core/base.html', '/blog/post_list.html')
 
     def test_search_by_category(self):
-        search_url = reverse('blog:search')
+        search_url = reverse('blog:posts')
         response = self.client.get(search_url + '?cat=category-1')
         self.assertEqual(response.status_code, 200)
         self.assertEqual(set([i for i in response.context['posts']]), set(
@@ -60,35 +56,35 @@ class ViewsTest(TestCase):
             response, 'core/base.html', '/blog/post_list.html')
 
     def test_search_by_query(self):
-        search_url = reverse('blog:search')
+        search_url = reverse('blog:posts')
         response = self.client.get(search_url + '?q=test')
         self.assertEqual(response.status_code, 200)
         self.assertEqual(set([i for i in response.context['posts']]), set(
             [self.post_2, self.post_3]))
 
     def test_search_by_category_and_query(self):
-        search_url = reverse('blog:search')
+        search_url = reverse('blog:posts')
         response = self.client.get(search_url + '?q=test&cat=category-1')
         self.assertEqual(response.status_code, 200)
         self.assertEqual(
             set([i for i in response.context['posts']]), set([self.post_3]))
 
     def test_no_search_criteria_selected(self):
-        search_url = reverse('blog:search')
+        search_url = reverse('blog:posts')
         response = self.client.get(search_url + '?q=&category=')
         self.assertEqual(response.status_code, 200)
         self.assertEqual(set([i for i in response.context['posts']]), set(
             [self.post_1, self.post_2, self.post_3]))
 
     def test_order_posts_by_creation_date_from_newest(self):
-        search_url = reverse('blog:search')
+        search_url = reverse('blog:posts')
         response = self.client.get(search_url + '?order=n')
         self.assertEqual(response.status_code, 200)
         self.assertEqual([i for i in response.context['posts']], [
                          self.post_3, self.post_2, self.post_1])
 
     def test_order_posts_by_creation_date_from_oldest(self):
-        search_url = reverse('blog:search')
+        search_url = reverse('blog:posts')
         response = self.client.get(search_url + '?order=o')
         self.assertEqual(response.status_code, 200)
         self.assertEqual([i for i in response.context['posts']], [

@@ -66,7 +66,7 @@
 				{% for post in posts %}
 				<div class="col-md-6 col-lg-4 mb-4 d-flex align-items-stretch">
 					<div class="card">
-						<img class="card-img-top img-fluid" src="{{post.image_thumbnail.url}}" alt="">
+						<img class="card-img-top img-fluid" src="{{ IMAGEKIT_URL }}/tr:w-400,h-200/media/{{ post.image_name }}" alt="">
 						<div class="card-body d-flex flex-column text-center">
 							<h2 class="card-title">{{post.title}}</h2>
 							<p class="card-subtitle text-muted mb-2">
@@ -78,7 +78,7 @@
 										{% if not forloop.last %}, {% endif %}
 									{% endfor %}
 							</p>
-							<div class="text-justify mt-auto">{{post.content|truncatewords:50|safe}}...</div>
+							<div class="text-left mt-auto">{{post.content|truncatewords:50|safe}}...</div>
 							<a href="{% url 'blog:post' post.id %}" class="btn btn-info">
 								Czytaj dalej 
 								<i class="fas fa-long-arrow-alt-right"></i></a>

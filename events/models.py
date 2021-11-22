@@ -1,3 +1,5 @@
+import os
+
 from django.contrib.auth.models import User
 from django.core.exceptions import ValidationError
 from django.db import models
@@ -21,17 +23,10 @@ class Event(models.Model):
         options={'quality': 60},
         default='img/events/event_default.jpg',
         verbose_name='Zdjęcie')
-    image_thumbnail = ImageSpecField(
-        source='image',
-        processors=[ResizeToFill(400, 200)],
-        format='JPEG',
-        options={'quality': 60})
-
     added_by = models.ForeignKey(
         User,
         verbose_name='dodane przez',
         on_delete=models.CASCADE)
-
     created = models.DateTimeField(
         auto_now_add=True, verbose_name='data utworzenia')
     updated = models.DateTimeField(
@@ -53,6 +48,10 @@ class Event(models.Model):
     @property
     def duration(self):
         return (self.date_end.date() - self.date_start.date()).days + 1
+    
+    @property
+    def image_name(self):
+        return self.image.name
 
     def clean(self, *args, **kwargs):
         if self.date_start < timezone.now():

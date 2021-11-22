@@ -51,11 +51,6 @@ class Post(models.Model):
         options={'quality': 60},
         default='img/blog/blog_default.jpg',
         verbose_name='zdjęcie')
-    image_thumbnail = ImageSpecField(
-        source='image',
-        processors=[ResizeToFill(400, 200)],
-        format='JPEG',
-        options={'quality': 60})
     published = models.DateTimeField(
         verbose_name='data publikacji', default=now)
     author = models.ForeignKey(
@@ -70,6 +65,10 @@ class Post(models.Model):
         auto_now_add=True, verbose_name='data utworzenia')
     updated = models.DateTimeField(
         auto_now=True, verbose_name='data aktualizacji')
+    
+    @property
+    def image_name(self):
+        return self.image.name
 
     class Meta:
 

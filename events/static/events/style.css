@@ -1,3 +1,8 @@
 #events-section h2 {
   font-size: 1.25rem;
 }
+
+#events-section .card-subtitle {
+  font-size: 1rem !important;
+  font-family: 'Lato', 'Roboto', sans-serif;
+}

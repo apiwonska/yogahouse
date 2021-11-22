@@ -82,3 +82,7 @@ ul.message-list {
   height: 100px;
   object-fit: cover;
 }
+
+.class-summary {
+  font-family: 'Lato', 'Roboto', sans-serif;
+}

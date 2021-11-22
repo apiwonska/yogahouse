@@ -35,4 +35,7 @@
   background-color: #54545F;
 } 
 
-
+#post-list-section .card-subtitle {
+  font-size: 1rem !important;
+  font-family: 'Lato', 'Roboto', sans-serif;
+}

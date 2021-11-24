@@ -1,6 +1,6 @@
 # Yoga House App
 
-Live demo: [https://yogahouse-ap.herokuapp.com](YogaHouse)
+[Live demo](https://yogahouse-ap.herokuapp.com)
 
 A website for fake yoga school with class schedule, blog, contact form and admin panel. App fully created with Django framework. The project was created to learn the basics of Django framework.
 

@@ -1,8 +1,6 @@
 import django_heroku
 from decouple import config
 
-DEBUG = config('DEBUG', default=False, cast=bool)
-DEBUG=True
 ALLOWED_HOSTS = ['yogahouse-ap.herokuapp.com']
 
 AWS_ACCESS_KEY_ID = config('AWS_ACCESS_KEY_ID')

@@ -1,3 +1,4 @@
+from decouple import config
 from django.core.mail import EmailMessage
 from django.shortcuts import redirect, render
 from django.urls import reverse
@@ -16,10 +17,9 @@ def contact(request):
             content = request.POST.get('content', '')
             # sending an email
             message = EmailMessage(
-                "YogaHouse: Nowa Wiadomość",
-                f"{name}<{email}>\n Napisał(a):\n {content}",
-                "no-contestar@inbox.mailtrap.io",
-                ["ann_piv04@gmail.com"],
+                subject="YogaHouse: Nowa Wiadomość",
+                body=f"{name}<{email}>\n Napisał(a):\n {content}",
+                to=[config('EMAIL_HOST_USER')],
                 reply_to=[email]
             )
             try:

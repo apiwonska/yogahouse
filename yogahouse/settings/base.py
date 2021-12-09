@@ -161,3 +161,8 @@ CKEDITOR_CONFIGS = {
 }
 
 IMAGEKIT_DEFAULT_IMAGE_CACHE_BACKEND = 'imagekit.imagecache.NonValidatingImageCacheBackend' 
+
+if DEBUG == False and config("ALLOWED_HOSTS"):
+    ALLOWED_HOSTS = config("ALLOWED_HOSTS").split(",")
+else:
+    ALLOWED_HOSTS = []
